@@ -1,6 +1,6 @@
 *
 !docs/CHANGELOG.md
-!src
+!src/**/*.js
 !commands.d.ts
 !commands.js
 !LICENSE.md

@@ -45,7 +45,7 @@ _Note: `cypress-web-vitals` currently makes use of `cypress-real-events` to clic
 Add the following line to your `cypress/support/commands.js`:
 
 ```js
-import "cypress-web-vitals/commands";
+import "cypress-web-vitals";
 ```
 
 ### Write your tests
