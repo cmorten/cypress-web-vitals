@@ -1,6 +1,10 @@
 *
 !docs/CHANGELOG.md
+!src
+!commands.d.ts
+!commands.js
 !LICENSE.md
 !package.json
 !README.md
+!SECURITY.md
 !yarn.lock
