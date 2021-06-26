@@ -1,0 +1,16 @@
+{
+  "name": "cypress-web-vitals-examples",
+  "version": "1.0.0",
+  "description": "web-vitals command examples",
+  "author": "Craig Morten <craig.morten@hotmail.co.uk>",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run --headless --browser chrome"
+  },
+  "devDependencies": {
+    "cypress": "^7.6.0",
+    "cypress-real-events": "^1.5.0"
+  }
+}

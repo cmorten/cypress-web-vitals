@@ -1,0 +1,32 @@
+{
+  "name": "cypress-web-vitals",
+  "version": "0.1.0",
+  "description": "A web-vitals command for cypress",
+  "author": "Craig Morten <craig.morten@hotmail.co.uk>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cmorten/cypress-web-vitals"
+  },
+  "main": "commands.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "lint": "eslint",
+    "lint:fix": "yarn lint --fix",
+    "test": "jest ./src --coverage"
+  },
+  "devDependencies": {
+    "cypress": "^7.6.0",
+    "cypress-real-events": "^1.5.0",
+    "eslint": "^7.29.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-cypress": "^2.11.3",
+    "eslint-plugin-prettier": "^3.4.0",
+    "jest": "^27.0.5",
+    "prettier": "^2.3.2"
+  },
+  "peerDependencies": {
+    "cypress": "^4.x || ^5.x || ^6.x || ^7.x",
+    "cypress-real-events": "^1.x"
+  }
+}

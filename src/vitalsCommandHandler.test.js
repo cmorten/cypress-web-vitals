@@ -1,0 +1,198 @@
+const {
+  LOG_SLUG,
+  DEFAULT_FIRST_INPUT_SELECTOR,
+  DEFAULT_THRESHOLDS,
+} = require("./constants");
+
+jest.mock("./getUrl", () => jest.fn());
+jest.mock("./visitWithWebVitalsSnippet", () => jest.fn());
+jest.mock("./performFirstInput", () => jest.fn());
+jest.mock("./triggerPageHideForReportingCls", () => jest.fn());
+jest.mock("./reportResults", () => jest.fn());
+
+const vitalsCommandHandler = require("./vitalsCommandHandler");
+const reportResults = require("./reportResults");
+const getUrl = require("./getUrl");
+const visitWithWebVitalsSnippet = require("./visitWithWebVitalsSnippet");
+const performFirstInput = require("./performFirstInput");
+const triggerPageHideForReportingCls = require("./triggerPageHideForReportingCls");
+
+const mockUrl = Symbol("test-url");
+const mockFirstInputSelector = Symbol("test-first-input-selector");
+const mockThresholds = Symbol("test-thresholds");
+
+describe("vitalsCommandHandler", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+
+    global.cy = {
+      log: jest.fn(),
+    };
+  });
+
+  describe("when the browser is not supported", () => {
+    beforeEach(() => {
+      global.Cypress = {
+        browser: {
+          displayName: "Firefox",
+        },
+      };
+
+      vitalsCommandHandler();
+    });
+
+    it("should log a warning", () => {
+      expect(global.cy.log).toHaveBeenCalledWith(
+        LOG_SLUG,
+        `Firefox is not supported. Skipping...`
+      );
+    });
+
+    it("should not report any results", () => {
+      expect(reportResults).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("when the browser is supported", () => {
+    beforeEach(() => {
+      global.Cypress = {
+        browser: {
+          displayName: "Chrome",
+        },
+      };
+
+      getUrl.mockResolvedValue(mockUrl);
+    });
+
+    describe("when no custom config is provided", () => {
+      beforeEach(() => {
+        vitalsCommandHandler();
+      });
+
+      it("should log a that Google's thresholds will be used", () => {
+        expect(global.cy.log).toHaveBeenCalledWith(
+          LOG_SLUG,
+          "You have not set any thresholds. The test will use Google's 'Good' scores as the thresholds for every metric."
+        );
+      });
+
+      it("should get the target url", () => {
+        expect(getUrl).toHaveBeenCalled();
+      });
+
+      it("should visit the url with the web-vitals snippet injected", () => {
+        expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith(mockUrl);
+      });
+
+      it("should perform the first input with the default selector", () => {
+        expect(performFirstInput).toHaveBeenCalledWith(
+          DEFAULT_FIRST_INPUT_SELECTOR
+        );
+      });
+
+      it("should trigger a page hide so CLS is reported", () => {
+        expect(triggerPageHideForReportingCls).toHaveBeenCalled();
+      });
+
+      it("should report on the results using the default thresholds", () => {
+        expect(reportResults).toHaveBeenCalledWith(DEFAULT_THRESHOLDS);
+      });
+    });
+
+    describe("when a custom url is provided", () => {
+      beforeEach(() => {
+        vitalsCommandHandler({ url: mockUrl });
+      });
+
+      it("should log a that Google's thresholds will be used", () => {
+        expect(global.cy.log).toHaveBeenCalledWith(
+          LOG_SLUG,
+          "You have not set any thresholds. The test will use Google's 'Good' scores as the thresholds for every metric."
+        );
+      });
+
+      it("should use the provided url", () => {
+        expect(getUrl).toHaveBeenCalledWith(mockUrl);
+      });
+
+      it("should visit the url with the web-vitals snippet injected", () => {
+        expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith(mockUrl);
+      });
+
+      it("should perform the first input with the default selector", () => {
+        expect(performFirstInput).toHaveBeenCalledWith(
+          DEFAULT_FIRST_INPUT_SELECTOR
+        );
+      });
+
+      it("should trigger a page hide so CLS is reported", () => {
+        expect(triggerPageHideForReportingCls).toHaveBeenCalled();
+      });
+
+      it("should report on the results using the default thresholds", () => {
+        expect(reportResults).toHaveBeenCalledWith(DEFAULT_THRESHOLDS);
+      });
+    });
+
+    describe("when a custom first input selector is provided", () => {
+      beforeEach(() => {
+        vitalsCommandHandler({ firstInputSelector: mockFirstInputSelector });
+      });
+
+      it("should log a that Google's thresholds will be used", () => {
+        expect(global.cy.log).toHaveBeenCalledWith(
+          LOG_SLUG,
+          "You have not set any thresholds. The test will use Google's 'Good' scores as the thresholds for every metric."
+        );
+      });
+
+      it("should get the target url", () => {
+        expect(getUrl).toHaveBeenCalled();
+      });
+
+      it("should visit the url with the web-vitals snippet injected", () => {
+        expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith(mockUrl);
+      });
+
+      it("should perform the first input with the provided selector", () => {
+        expect(performFirstInput).toHaveBeenCalledWith(mockFirstInputSelector);
+      });
+
+      it("should trigger a page hide so CLS is reported", () => {
+        expect(triggerPageHideForReportingCls).toHaveBeenCalled();
+      });
+
+      it("should report on the results using the default thresholds", () => {
+        expect(reportResults).toHaveBeenCalledWith(DEFAULT_THRESHOLDS);
+      });
+    });
+
+    describe("when custom thresholds are provided", () => {
+      beforeEach(() => {
+        vitalsCommandHandler({ thresholds: mockThresholds });
+      });
+
+      it("should get the target url", () => {
+        expect(getUrl).toHaveBeenCalled();
+      });
+
+      it("should visit the url with the web-vitals snippet injected", () => {
+        expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith(mockUrl);
+      });
+
+      it("should perform the first input with the default selector", () => {
+        expect(performFirstInput).toHaveBeenCalledWith(
+          DEFAULT_FIRST_INPUT_SELECTOR
+        );
+      });
+
+      it("should trigger a page hide so CLS is reported", () => {
+        expect(triggerPageHideForReportingCls).toHaveBeenCalled();
+      });
+
+      it("should report on the results using the provided thresholds", () => {
+        expect(reportResults).toHaveBeenCalledWith(mockThresholds);
+      });
+    });
+  });
+});

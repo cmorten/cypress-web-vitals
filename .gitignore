@@ -1,0 +1,5 @@
+coverage
+fixtures
+node_modules
+screenshots
+.DS_Store
