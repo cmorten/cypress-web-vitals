@@ -7,7 +7,9 @@ const {
 const getUrl = require("./getUrl");
 const visitWithWebVitalsSnippet = require("./visitWithWebVitalsSnippet");
 const performFirstInput = require("./performFirstInput");
+const waitForPageLoad = require("./waitForPageLoad");
 const triggerPageHideForReportingCls = require("./triggerPageHideForReportingCls");
+const waitForVitals = require("./waitForVitals");
 const reportResults = require("./reportResults");
 
 const vitalsCommandHandler = (
@@ -33,7 +35,13 @@ const vitalsCommandHandler = (
   return getUrl(url)
     .then(visitWithWebVitalsSnippet)
     .then(performFirstInput(firstInputSelector))
+    .then(performFirstInput(firstInputSelector))
+    .then(performFirstInput(firstInputSelector))
+    .then(performFirstInput(firstInputSelector))
+    .then(performFirstInput(firstInputSelector))
+    .then(waitForPageLoad)
     .then(triggerPageHideForReportingCls)
+    .then(waitForVitals(thresholds))
     .then(reportResults(thresholds));
 };
 

@@ -26,7 +26,7 @@ A <a href="https://github.com/GoogleChrome/web-vitals">web-vitals</a> command fo
 
 `cypress-web-vitals` allows you to test against these signals within your Cypress workflows through a new `cy.vitals()` [custom command](https://docs.cypress.io/api/cypress-api/custom-commands).
 
-## Getting Started
+## Getting started
 
 ### Install the dependencies
 
@@ -105,6 +105,15 @@ cy.vitals({ thresholds: { cls: 0.2 } }); // Test the page against against a CLS 
   "ttfb": 600
 }
 ```
+
+## How does it work?
+
+1. The url is visited with the HTML response intercepted and modified by Cypress to include the [web-vitals](https://github.com/GoogleChrome/web-vitals#from-a-cdn) module script and some code to record the web-vitals values.
+1. The body or provided element (based on `firstInputSelector`) is then clicked several times in quick succession to simulate a user clicking on the page. Note: if choosing a custom element, don't pick something that will navigate away from the page otherwise the plugin will fail to capture the web-vitals metrics.
+1. The audit then waits for the page load event to allow for the values of LCP and CLS to settle; which are subject to change as different parts of the page load into view.
+1. Next the audit simulates a page visibility state change [which is required for the CLS web-vital to be reported](https://www.npmjs.com/package/web-vitals#basic-usage).
+1. The audit then attempts to wait for any outstanding web-vitals to be reported for which thresholds have been provided.
+1. Finally the web-vitals values are compared against the thresholds, logging successful results and throwing an error for any unsuccessful signals. Note: if the audit was unable to record a web-vital then it is logged, _but the test will not fail_.
 
 ## Contributing
 

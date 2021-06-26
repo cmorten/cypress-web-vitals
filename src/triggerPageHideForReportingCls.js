@@ -1,16 +1,8 @@
-/* eslint-disable cypress/no-unnecessary-waiting */
-const { DELAY_MS_FOR_CLS_REPORTING } = require("./constants");
-
-const openTab = (win) => cy.wrap(win.open(""), { log: false });
-
-const closeTabAfterDelay = (tab) =>
-  cy.wait(DELAY_MS_FOR_CLS_REPORTING, { log: false }).then(() => tab.close());
-
 const triggerPageHideForReportingCls = () =>
-  cy
-    .window({ log: false })
-    .then(openTab)
-    .then(closeTabAfterDelay)
-    .then(() => cy.wait(DELAY_MS_FOR_CLS_REPORTING, { log: false }));
+  cy.document({ log: false }).then((doc) => {
+    cy.stub(doc, "visibilityState").value("hidden");
+    cy.stub(doc, "hidden").value(true);
+    doc.dispatchEvent(new Event("visibilitychange"));
+  });
 
 module.exports = triggerPageHideForReportingCls;

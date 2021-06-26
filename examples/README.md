@@ -1,6 +1,6 @@
 # cypress-web-vitals-examples
 
-## Getting Started
+## Getting started
 
 ### Install the dependencies
 

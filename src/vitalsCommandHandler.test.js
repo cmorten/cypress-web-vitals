@@ -7,7 +7,9 @@ const {
 jest.mock("./getUrl", () => jest.fn());
 jest.mock("./visitWithWebVitalsSnippet", () => jest.fn());
 jest.mock("./performFirstInput", () => jest.fn());
+jest.mock("./waitForPageLoad", () => jest.fn());
 jest.mock("./triggerPageHideForReportingCls", () => jest.fn());
+jest.mock("./waitForVitals", () => jest.fn());
 jest.mock("./reportResults", () => jest.fn());
 
 const vitalsCommandHandler = require("./vitalsCommandHandler");
@@ -15,7 +17,9 @@ const reportResults = require("./reportResults");
 const getUrl = require("./getUrl");
 const visitWithWebVitalsSnippet = require("./visitWithWebVitalsSnippet");
 const performFirstInput = require("./performFirstInput");
+const waitForPageLoad = require("./waitForPageLoad");
 const triggerPageHideForReportingCls = require("./triggerPageHideForReportingCls");
+const waitForVitals = require("./waitForVitals");
 
 const mockUrl = Symbol("test-url");
 const mockFirstInputSelector = Symbol("test-first-input-selector");
@@ -84,14 +88,23 @@ describe("vitalsCommandHandler", () => {
         expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith(mockUrl);
       });
 
-      it("should perform the first input with the default selector", () => {
+      it("should perform the first input with the default selector (a few times to ensure the browser registers the click - think impatient user!)", () => {
         expect(performFirstInput).toHaveBeenCalledWith(
           DEFAULT_FIRST_INPUT_SELECTOR
         );
+        expect(performFirstInput).toHaveBeenCalledTimes(5);
+      });
+
+      it("should wait for the onload event", () => {
+        expect(waitForPageLoad).toHaveBeenCalled();
       });
 
       it("should trigger a page hide so CLS is reported", () => {
         expect(triggerPageHideForReportingCls).toHaveBeenCalled();
+      });
+
+      it("should wait for all vitals to have been reported", () => {
+        expect(waitForVitals).toHaveBeenCalledWith(DEFAULT_THRESHOLDS);
       });
 
       it("should report on the results using the default thresholds", () => {
@@ -119,14 +132,23 @@ describe("vitalsCommandHandler", () => {
         expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith(mockUrl);
       });
 
-      it("should perform the first input with the default selector", () => {
+      it("should perform the first input with the default selector (a few times to ensure the browser registers the click - think impatient user!)", () => {
         expect(performFirstInput).toHaveBeenCalledWith(
           DEFAULT_FIRST_INPUT_SELECTOR
         );
+        expect(performFirstInput).toHaveBeenCalledTimes(5);
+      });
+
+      it("should wait for the onload event", () => {
+        expect(waitForPageLoad).toHaveBeenCalled();
       });
 
       it("should trigger a page hide so CLS is reported", () => {
         expect(triggerPageHideForReportingCls).toHaveBeenCalled();
+      });
+
+      it("should wait for all vitals to have been reported", () => {
+        expect(waitForVitals).toHaveBeenCalledWith(DEFAULT_THRESHOLDS);
       });
 
       it("should report on the results using the default thresholds", () => {
@@ -154,12 +176,21 @@ describe("vitalsCommandHandler", () => {
         expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith(mockUrl);
       });
 
-      it("should perform the first input with the provided selector", () => {
+      it("should perform the first input with the provided selector (a few times to ensure the browser registers the click - think impatient user!)", () => {
         expect(performFirstInput).toHaveBeenCalledWith(mockFirstInputSelector);
+        expect(performFirstInput).toHaveBeenCalledTimes(5);
+      });
+
+      it("should wait for the onload event", () => {
+        expect(waitForPageLoad).toHaveBeenCalled();
       });
 
       it("should trigger a page hide so CLS is reported", () => {
         expect(triggerPageHideForReportingCls).toHaveBeenCalled();
+      });
+
+      it("should wait for all vitals to have been reported", () => {
+        expect(waitForVitals).toHaveBeenCalledWith(DEFAULT_THRESHOLDS);
       });
 
       it("should report on the results using the default thresholds", () => {
@@ -180,14 +211,23 @@ describe("vitalsCommandHandler", () => {
         expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith(mockUrl);
       });
 
-      it("should perform the first input with the default selector", () => {
+      it("should perform the first input with the default selector (a few times to ensure the browser registers the click - think impatient user!)", () => {
         expect(performFirstInput).toHaveBeenCalledWith(
           DEFAULT_FIRST_INPUT_SELECTOR
         );
+        expect(performFirstInput).toHaveBeenCalledTimes(5);
+      });
+
+      it("should wait for the onload event", () => {
+        expect(waitForPageLoad).toHaveBeenCalled();
       });
 
       it("should trigger a page hide so CLS is reported", () => {
         expect(triggerPageHideForReportingCls).toHaveBeenCalled();
+      });
+
+      it("should wait for all vitals to have been reported", () => {
+        expect(waitForVitals).toHaveBeenCalledWith(mockThresholds);
       });
 
       it("should report on the results using the provided thresholds", () => {
