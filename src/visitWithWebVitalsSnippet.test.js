@@ -43,6 +43,27 @@ describe("visitWithWebVitalsSnippet", () => {
     });
   });
 
+  describe("irregular head tag intercept", () => {
+    const mockResponse = {
+      send: jest.fn(),
+      body: '<html><head attribute="value"><title>App</title></head><body></body></html>',
+    };
+
+    beforeEach(() => {
+      const mockRequest = {
+        continue: (fn) => fn(mockResponse),
+      };
+
+      global.cy.intercept.mock.calls[0][1](mockRequest);
+    });
+
+    it("should recognize the irregular head tag format and preserve it", () => {
+      expect(mockResponse.send).toHaveBeenCalledWith(
+        `<html><head attribute="value">${WEB_VITALS_SNIPPET}<title>App</title></head><body></body></html>`
+      );
+    });
+  });
+
   it("should visit the url without logging", () => {
     expect(global.cy.visit).toHaveBeenCalledWith(mockUrl, { log: false });
   });
