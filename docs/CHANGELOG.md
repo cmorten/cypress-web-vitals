@@ -1,5 +1,10 @@
 # ChangeLog
 
+## [0.4.0] - 02-11-2021
+
+- [#1] bug: fix script injection when head tag has whitespace or attributes (#2) @jonthemiller
+- feat: `vitalsReportedTimeout` config (#3)
+
 ## [0.3.0] - 26-06-2021
 
 - fix: `visibilityState` changes now simulated through stubbing the document as `window.open()` does not work with headless Cypress.
