@@ -1,10 +1,11 @@
-const {
-  WEB_VITALS_ACCESSOR_KEY,
-  ALL_WEB_VITALS_REPORTED_TIMEOUT_MS,
-} = require("./constants");
+const { WEB_VITALS_ACCESSOR_KEY } = require("./constants");
 
 const allVitalsReported = (win, thresholds) => {
   const reports = win[WEB_VITALS_ACCESSOR_KEY];
+
+  if (!reports) {
+    return false;
+  }
 
   for (const key of Object.keys(thresholds)) {
     if (!reports[key]) {
@@ -15,37 +16,36 @@ const allVitalsReported = (win, thresholds) => {
   return true;
 };
 
-const waitForVitals = (thresholds) => () => {
-  return cy
-    .window({ log: false })
-    .then(
-      { timeout: ALL_WEB_VITALS_REPORTED_TIMEOUT_MS + 1000 },
-      async (win) => {
+const waitForVitals =
+  ({ thresholds, vitalsReportedTimeout }) =>
+  () => {
+    return cy
+      .window({ log: false })
+      .then({ timeout: vitalsReportedTimeout + 1000 }, async (win) => {
         await new Promise((resolve) => {
+          let timeout;
+
+          function handleWebVital() {
+            if (allVitalsReported(win, thresholds)) {
+              clearTimeout(timeout);
+              resolve();
+            }
+          }
+
           if (allVitalsReported(win, thresholds)) {
             resolve();
           } else {
-            let timeout;
-
-            function handleWebVital() {
-              if (allVitalsReported(win, thresholds)) {
-                clearTimeout(timeout);
-                resolve();
-              }
-            }
-
             win.addEventListener(WEB_VITALS_ACCESSOR_KEY, handleWebVital);
 
             timeout = setTimeout(() => {
               win.removeEventListener(WEB_VITALS_ACCESSOR_KEY, handleWebVital);
               resolve();
-            }, ALL_WEB_VITALS_REPORTED_TIMEOUT_MS);
+            }, vitalsReportedTimeout);
           }
         });
 
         return true;
-      }
-    );
-};
+      });
+  };
 
 module.exports = waitForVitals;

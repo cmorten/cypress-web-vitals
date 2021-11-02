@@ -37,7 +37,10 @@ describe("waitForVitals", () => {
         },
       }));
 
-      resultPromise = await waitForVitals(mockThreshold)();
+      resultPromise = await waitForVitals({
+        thresholds: mockThreshold,
+        vitalsReportedTimeout: 10000,
+      })();
     });
 
     it("should not add an event listener for observing web-vitals reports", () => {
@@ -69,7 +72,10 @@ describe("waitForVitals", () => {
 
       resultPromisePending = true;
 
-      resultPromise = waitForVitals(mockThreshold)();
+      resultPromise = waitForVitals({
+        thresholds: mockThreshold,
+        vitalsReportedTimeout: 10000,
+      })();
 
       resultPromise.then(() => {
         resultPromisePending = false;
@@ -127,6 +133,44 @@ describe("waitForVitals", () => {
           expect(resultPromisePending).toEqual(false);
         });
       });
+    });
+  });
+
+  describe("when the vitals namespace has not yet been (or failed to be) set up", () => {
+    beforeEach(() => {
+      mockWindow = {
+        addEventListener: jest.fn(),
+        removeEventListener: jest.fn(),
+      };
+
+      global.cy.window.mockImplementation(() => ({
+        then(_, fn) {
+          return Promise.resolve(fn(mockWindow));
+        },
+      }));
+
+      resultPromisePending = true;
+
+      resultPromise = waitForVitals({
+        thresholds: mockThreshold,
+        vitalsReportedTimeout: 10000,
+      })();
+
+      resultPromise.then(() => {
+        resultPromisePending = false;
+      });
+    });
+
+    afterEach(async () => {
+      jest.runAllTimers();
+      await resultPromise;
+    });
+
+    it("should add an event listener for observing web-vitals reports", () => {
+      expect(mockWindow.addEventListener).toHaveBeenCalledWith(
+        WEB_VITALS_ACCESSOR_KEY,
+        expect.any(Function)
+      );
     });
   });
 });

@@ -13,32 +13,28 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
+      - name: Line endings
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: "16"
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
       - name: Lint
         run: yarn lint
+
   examples:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ubuntu-latest
+    container: cypress/browsers:node14.17.0-chrome91-ff89
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: cypress-io/github-action@v2
         with:
-          node-version: "14"
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Run headless cypress tests
-        run: |
-          cd ./examples
-          yarn install --frozen-lockfile
-          yarn cy:run
+          browser: chrome
+          project: ./examples

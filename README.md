@@ -85,6 +85,7 @@ cy.vitals({ thresholds: { cls: 0.2 } }); // Test the page against against a CLS 
 - `Optional` **url**: `string` - The url to audit. If not provided you will need to have called `cy.visit(url)` prior to the command.
 - `Optional` **firstInputSelector**: `string` - The element to click for capturing FID. Default: `"body"`.
 - `Optional` **thresholds**: `WebVitalsThresholds` - The thresholds to audit the web-vitals against. If not provided Google's 'Good' scores will be used (see below). If provided, any missing web-vitals signals will not be audited.
+- `Optional` **vitalsReportedTimeout**: `number` - Time in ms to wait for web-vitals to be reported before failing. Default: `10000`.
 
 `WebVitalsThresholds`:
 

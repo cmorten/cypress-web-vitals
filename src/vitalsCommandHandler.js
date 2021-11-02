@@ -1,8 +1,9 @@
 const {
+  DEFAULT_ALL_WEB_VITALS_REPORTED_TIMEOUT_MS,
   DEFAULT_THRESHOLDS,
   DEFAULT_FIRST_INPUT_SELECTOR,
-  SUPPORTED_BROWSERS,
   LOG_SLUG,
+  SUPPORTED_BROWSERS,
 } = require("./constants");
 const getUrl = require("./getUrl");
 const visitWithWebVitalsSnippet = require("./visitWithWebVitalsSnippet");
@@ -13,8 +14,14 @@ const waitForVitals = require("./waitForVitals");
 const reportResults = require("./reportResults");
 
 const vitalsCommandHandler = (
-  { thresholds, firstInputSelector = DEFAULT_FIRST_INPUT_SELECTOR, url } = {
+  {
+    thresholds,
+    firstInputSelector = DEFAULT_FIRST_INPUT_SELECTOR,
+    url,
+    vitalsReportedTimeout = DEFAULT_ALL_WEB_VITALS_REPORTED_TIMEOUT_MS,
+  } = {
     firstInputSelector: DEFAULT_FIRST_INPUT_SELECTOR,
+    vitalsReportedTimeout: DEFAULT_ALL_WEB_VITALS_REPORTED_TIMEOUT_MS,
   }
 ) => {
   const browserName = Cypress.browser.displayName;
@@ -41,7 +48,7 @@ const vitalsCommandHandler = (
     .then(performFirstInput(firstInputSelector))
     .then(waitForPageLoad)
     .then(triggerPageHideForReportingCls)
-    .then(waitForVitals(thresholds))
+    .then(waitForVitals({ thresholds, vitalsReportedTimeout }))
     .then(reportResults(thresholds));
 };
 
