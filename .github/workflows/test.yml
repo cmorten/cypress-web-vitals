@@ -23,20 +23,11 @@ jobs:
 
       - name: Lint
         run: yarn lint
+
   examples:
     runs-on: ubuntu-latest
     container: cypress/browsers:node16.5.0-chrome94-ff93
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: "16"
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Run headless cypress tests
-        run: |
-          cd ./examples
-          yarn install --frozen-lockfile
-          yarn cy:run
+      - run: cd ./examples
+      - uses: cypress-io/github-action@v2
