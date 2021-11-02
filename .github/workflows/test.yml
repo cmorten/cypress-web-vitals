@@ -31,3 +31,5 @@ jobs:
       - uses: actions/checkout@v2
       - run: cd ./examples
       - uses: cypress-io/github-action@v2
+        with:
+          browser: chrome
