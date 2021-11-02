@@ -6,6 +6,10 @@ const {
 const allVitalsReported = (win, thresholds) => {
   const reports = win[WEB_VITALS_ACCESSOR_KEY];
 
+  if (!reports) {
+    return false;
+  }
+
   for (const key of Object.keys(thresholds)) {
     if (!reports[key]) {
       return false;

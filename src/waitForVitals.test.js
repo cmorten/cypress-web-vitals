@@ -129,4 +129,41 @@ describe("waitForVitals", () => {
       });
     });
   });
+
+  describe("when the vitals namespace has not yet been (or failed to be) set up", () => {
+    let resultPromisePending;
+
+    beforeEach(() => {
+      mockWindow = {
+        addEventListener: jest.fn(),
+        removeEventListener: jest.fn(),
+      };
+
+      global.cy.window.mockImplementation(() => ({
+        then(_, fn) {
+          return Promise.resolve(fn(mockWindow));
+        },
+      }));
+
+      resultPromisePending = true;
+
+      resultPromise = waitForVitals(mockThreshold)();
+
+      resultPromise.then(() => {
+        resultPromisePending = false;
+      });
+    });
+
+    afterEach(async () => {
+      jest.runAllTimers();
+      await resultPromise;
+    });
+
+    it("should add an event listener for observing web-vitals reports", () => {
+      expect(mockWindow.addEventListener).toHaveBeenCalledWith(
+        WEB_VITALS_ACCESSOR_KEY,
+        expect.any(Function)
+      );
+    });
+  });
 });
