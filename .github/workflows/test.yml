@@ -31,7 +31,7 @@ jobs:
 
   examples:
     runs-on: ubuntu-latest
-    container: cypress/browsers:node16.5.0-chrome94-ff93
+    container: cypress/browsers:node14.17.0-chrome91-ff89
     steps:
       - uses: actions/checkout@v2
       - run: cd ./examples
