@@ -29,7 +29,7 @@ getTTFB(m=>{window.${WEB_VITALS_ACCESSOR_KEY}.ttfb=m;console.log(m);window.dispa
 
 const LOG_SLUG = "cy.vitals()";
 
-const ALL_WEB_VITALS_REPORTED_TIMEOUT_MS = 4000;
+const ALL_WEB_VITALS_REPORTED_TIMEOUT_MS = 10000;
 
 module.exports = {
   DEFAULT_THRESHOLDS,
