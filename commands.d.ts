@@ -50,6 +50,12 @@ declare namespace Cypress {
      * @default "body"
      */
     firstInputSelector?: string;
+
+    /**
+     * Time in ms to wait for web-vitals to be reported before failing.
+     * @default 10000
+     */
+     vitalsReportedTimeout?: number;
   }
 
   interface Chainable<Subject> {

@@ -1,4 +1,5 @@
 const {
+  DEFAULT_ALL_WEB_VITALS_REPORTED_TIMEOUT_MS,
   LOG_SLUG,
   DEFAULT_FIRST_INPUT_SELECTOR,
   DEFAULT_THRESHOLDS,
@@ -24,6 +25,7 @@ const waitForVitals = require("./waitForVitals");
 const mockUrl = Symbol("test-url");
 const mockFirstInputSelector = Symbol("test-first-input-selector");
 const mockThresholds = Symbol("test-thresholds");
+const mockVitalsReportedTimeout = Symbol("test-vitals-reported-timeout");
 
 describe("vitalsCommandHandler", () => {
   beforeEach(() => {
@@ -104,7 +106,10 @@ describe("vitalsCommandHandler", () => {
       });
 
       it("should wait for all vitals to have been reported", () => {
-        expect(waitForVitals).toHaveBeenCalledWith(DEFAULT_THRESHOLDS);
+        expect(waitForVitals).toHaveBeenCalledWith({
+          thresholds: DEFAULT_THRESHOLDS,
+          vitalsReportedTimeout: DEFAULT_ALL_WEB_VITALS_REPORTED_TIMEOUT_MS,
+        });
       });
 
       it("should report on the results using the default thresholds", () => {
@@ -148,7 +153,10 @@ describe("vitalsCommandHandler", () => {
       });
 
       it("should wait for all vitals to have been reported", () => {
-        expect(waitForVitals).toHaveBeenCalledWith(DEFAULT_THRESHOLDS);
+        expect(waitForVitals).toHaveBeenCalledWith({
+          thresholds: DEFAULT_THRESHOLDS,
+          vitalsReportedTimeout: DEFAULT_ALL_WEB_VITALS_REPORTED_TIMEOUT_MS,
+        });
       });
 
       it("should report on the results using the default thresholds", () => {
@@ -190,7 +198,10 @@ describe("vitalsCommandHandler", () => {
       });
 
       it("should wait for all vitals to have been reported", () => {
-        expect(waitForVitals).toHaveBeenCalledWith(DEFAULT_THRESHOLDS);
+        expect(waitForVitals).toHaveBeenCalledWith({
+          thresholds: DEFAULT_THRESHOLDS,
+          vitalsReportedTimeout: DEFAULT_ALL_WEB_VITALS_REPORTED_TIMEOUT_MS,
+        });
       });
 
       it("should report on the results using the default thresholds", () => {
@@ -227,11 +238,56 @@ describe("vitalsCommandHandler", () => {
       });
 
       it("should wait for all vitals to have been reported", () => {
-        expect(waitForVitals).toHaveBeenCalledWith(mockThresholds);
+        expect(waitForVitals).toHaveBeenCalledWith({
+          thresholds: mockThresholds,
+          vitalsReportedTimeout: DEFAULT_ALL_WEB_VITALS_REPORTED_TIMEOUT_MS,
+        });
       });
 
       it("should report on the results using the provided thresholds", () => {
         expect(reportResults).toHaveBeenCalledWith(mockThresholds);
+      });
+    });
+
+    describe("when vitals reported timeout is provided", () => {
+      beforeEach(() => {
+        vitalsCommandHandler({
+          vitalsReportedTimeout: mockVitalsReportedTimeout,
+        });
+      });
+
+      it("should get the target url", () => {
+        expect(getUrl).toHaveBeenCalled();
+      });
+
+      it("should visit the url with the web-vitals snippet injected", () => {
+        expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith(mockUrl);
+      });
+
+      it("should perform the first input with the default selector (a few times to ensure the browser registers the click - think impatient user!)", () => {
+        expect(performFirstInput).toHaveBeenCalledWith(
+          DEFAULT_FIRST_INPUT_SELECTOR
+        );
+        expect(performFirstInput).toHaveBeenCalledTimes(5);
+      });
+
+      it("should wait for the onload event", () => {
+        expect(waitForPageLoad).toHaveBeenCalled();
+      });
+
+      it("should trigger a page hide so CLS is reported", () => {
+        expect(triggerPageHideForReportingCls).toHaveBeenCalled();
+      });
+
+      it("should wait for all vitals to have been reported", () => {
+        expect(waitForVitals).toHaveBeenCalledWith({
+          thresholds: DEFAULT_THRESHOLDS,
+          vitalsReportedTimeout: mockVitalsReportedTimeout,
+        });
+      });
+
+      it("should report on the results using the default thresholds", () => {
+        expect(reportResults).toHaveBeenCalledWith(DEFAULT_THRESHOLDS);
       });
     });
   });

@@ -37,7 +37,10 @@ describe("waitForVitals", () => {
         },
       }));
 
-      resultPromise = await waitForVitals(mockThreshold)();
+      resultPromise = await waitForVitals({
+        thresholds: mockThreshold,
+        vitalsReportedTimeout: 10000,
+      })();
     });
 
     it("should not add an event listener for observing web-vitals reports", () => {
@@ -69,7 +72,10 @@ describe("waitForVitals", () => {
 
       resultPromisePending = true;
 
-      resultPromise = waitForVitals(mockThreshold)();
+      resultPromise = waitForVitals({
+        thresholds: mockThreshold,
+        vitalsReportedTimeout: 10000,
+      })();
 
       resultPromise.then(() => {
         resultPromisePending = false;
@@ -131,8 +137,6 @@ describe("waitForVitals", () => {
   });
 
   describe("when the vitals namespace has not yet been (or failed to be) set up", () => {
-    let resultPromisePending;
-
     beforeEach(() => {
       mockWindow = {
         addEventListener: jest.fn(),
@@ -147,7 +151,10 @@ describe("waitForVitals", () => {
 
       resultPromisePending = true;
 
-      resultPromise = waitForVitals(mockThreshold)();
+      resultPromise = waitForVitals({
+        thresholds: mockThreshold,
+        vitalsReportedTimeout: 10000,
+      })();
 
       resultPromise.then(() => {
         resultPromisePending = false;
