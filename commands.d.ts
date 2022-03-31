@@ -46,7 +46,8 @@ declare namespace Cypress {
     url?: string;
 
     /**
-     * Selector used for capturing FID.
+     * Selector used for capturing FID. The first matching element is
+     * used.
      * @default "body"
      */
     firstInputSelector?: string;
@@ -55,7 +56,7 @@ declare namespace Cypress {
      * Time in ms to wait for web-vitals to be reported before failing.
      * @default 10000
      */
-     vitalsReportedTimeout?: number;
+    vitalsReportedTimeout?: number;
   }
 
   interface Chainable<Subject> {

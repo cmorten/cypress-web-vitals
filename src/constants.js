@@ -17,7 +17,7 @@ const SUPPORTED_BROWSERS = {
 const WEB_VITALS_ACCESSOR_KEY = "__cy_web_vitals__";
 
 const WEB_VITALS_SNIPPET = `<script type="module">
-import {getCLS,getFID,getLCP,getFCP,getTTFB} from "https://unpkg.com/web-vitals?module";
+import {getCLS,getFID,getLCP,getFCP,getTTFB} from "https://unpkg.com/web-vitals@2.1.4/dist/web-vitals.js?module";
 window.${WEB_VITALS_ACCESSOR_KEY}=window.${WEB_VITALS_ACCESSOR_KEY}||{};
 const event = new Event("${WEB_VITALS_ACCESSOR_KEY}");
 getCLS(m=>{window.${WEB_VITALS_ACCESSOR_KEY}.cls=m;console.log(m);window.dispatchEvent(event);});
