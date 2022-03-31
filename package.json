@@ -1,6 +1,6 @@
 {
   "name": "cypress-web-vitals",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "A web-vitals command for cypress",
   "author": "Craig Morten <craig.morten@hotmail.co.uk>",
   "license": "MIT",
@@ -17,17 +17,17 @@
     "test": "jest ./src --coverage"
   },
   "devDependencies": {
-    "cypress": "^8.7.0",
-    "cypress-real-events": "^1.5.1",
-    "eslint": "^8.1.0",
-    "eslint-config-prettier": "^8.3.0",
+    "cypress": "^9.5.3",
+    "cypress-real-events": "^1.7.0",
+    "eslint": "^8.12.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-prettier": "^4.0.0",
-    "jest": "^27.3.1",
-    "prettier": "^2.4.1"
+    "jest": "^27.5.1",
+    "prettier": "^2.6.1"
   },
   "peerDependencies": {
-    "cypress": "^4.x || ^5.x || ^6.x || ^7.x || ^8.x",
+    "cypress": "^4.x || ^5.x || ^6.x || ^7.x || ^8.x || ^9.x",
     "cypress-real-events": "^1.x"
   }
 }
