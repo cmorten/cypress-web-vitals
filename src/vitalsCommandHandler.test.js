@@ -90,10 +90,14 @@ describe("vitalsCommandHandler", () => {
         expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith(mockUrl);
       });
 
-      it("should perform the first input with the default selector (a few times to ensure the browser registers the click - think impatient user!)", () => {
+      it("should perform the first input with the default selector and other common elements (a few times to ensure the browser registers the click - think impatient user!)", () => {
         expect(performFirstInput).toHaveBeenCalledWith(
           DEFAULT_FIRST_INPUT_SELECTOR
         );
+        expect(performFirstInput).toHaveBeenCalledWith("main");
+        expect(performFirstInput).toHaveBeenCalledWith("header");
+        expect(performFirstInput).toHaveBeenCalledWith("nav");
+        expect(performFirstInput).toHaveBeenCalledWith("body");
         expect(performFirstInput).toHaveBeenCalledTimes(5);
       });
 
