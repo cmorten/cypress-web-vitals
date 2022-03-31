@@ -1,7 +1,7 @@
 const { WEB_VITALS_SNIPPET } = require("./constants");
 
 const visitWithWebVitalsSnippet = (url) => {
-  cy.intercept(url, (req) => {
+  cy.intercept({ method: "GET", url, times: 1 }, (req) => {
     req.continue((res) => {
       const body = res.body.replace(
         /<head(>|.*?[^?]>)/g,
