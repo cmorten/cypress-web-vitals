@@ -39,14 +39,19 @@ const vitalsCommandHandler = (
     thresholds = DEFAULT_THRESHOLDS;
   }
 
+  const { cls, ...thresholdsWithoutCls } = thresholds;
+
   return getUrl(url)
     .then(visitWithWebVitalsSnippet)
     .then(performFirstInput(firstInputSelector))
-    .then(performFirstInput(firstInputSelector))
-    .then(performFirstInput(firstInputSelector))
-    .then(performFirstInput(firstInputSelector))
-    .then(performFirstInput(firstInputSelector))
+    .then(performFirstInput("main"))
+    .then(performFirstInput("header"))
+    .then(performFirstInput("nav"))
+    .then(performFirstInput("body"))
     .then(waitForPageLoad)
+    .then(
+      waitForVitals({ thresholds: thresholdsWithoutCls, vitalsReportedTimeout })
+    )
     .then(triggerPageHideForReportingCls)
     .then(waitForVitals({ thresholds, vitalsReportedTimeout }))
     .then(reportResults(thresholds));

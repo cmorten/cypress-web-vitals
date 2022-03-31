@@ -16,16 +16,7 @@ const SUPPORTED_BROWSERS = {
 
 const WEB_VITALS_ACCESSOR_KEY = "__cy_web_vitals__";
 
-const WEB_VITALS_SNIPPET = `<script type="module">
-import {getCLS,getFID,getLCP,getFCP,getTTFB} from "https://unpkg.com/web-vitals?module";
-window.${WEB_VITALS_ACCESSOR_KEY}=window.${WEB_VITALS_ACCESSOR_KEY}||{};
-const event = new Event("${WEB_VITALS_ACCESSOR_KEY}");
-getCLS(m=>{window.${WEB_VITALS_ACCESSOR_KEY}.cls=m;console.log(m);window.dispatchEvent(event);});
-getFID(m=>{window.${WEB_VITALS_ACCESSOR_KEY}.fid=m;console.log(m);window.dispatchEvent(event);});
-getLCP(m=>{window.${WEB_VITALS_ACCESSOR_KEY}.lcp=m;console.log(m);window.dispatchEvent(event);});
-getFCP(m=>{window.${WEB_VITALS_ACCESSOR_KEY}.fcp=m;console.log(m);window.dispatchEvent(event);});
-getTTFB(m=>{window.${WEB_VITALS_ACCESSOR_KEY}.ttfb=m;console.log(m);window.dispatchEvent(event);});
-</script>`;
+const WEB_VITALS_SNIPPET = `<script type="module">import{getCLS,getFID,getLCP,getFCP,getTTFB}from"https://unpkg.com/web-vitals@2.1.4/dist/web-vitals.js?module";(w=>{w.${WEB_VITALS_ACCESSOR_KEY}=w.${WEB_VITALS_ACCESSOR_KEY}||{};const e=new Event("${WEB_VITALS_ACCESSOR_KEY}");getCLS(m=>{w.${WEB_VITALS_ACCESSOR_KEY}.cls=m;w.dispatchEvent(e)});getFID(m=>{w.${WEB_VITALS_ACCESSOR_KEY}.fid=m;w.dispatchEvent(e)});getLCP(m=>{w.${WEB_VITALS_ACCESSOR_KEY}.lcp=m;w.dispatchEvent(e)});getFCP(m=>{w.${WEB_VITALS_ACCESSOR_KEY}.fcp=m;w.dispatchEvent(e)});getTTFB(m=>{w.${WEB_VITALS_ACCESSOR_KEY}.ttfb=m;w.dispatchEvent(e)})})(window)</script>`;
 
 const LOG_SLUG = "cy.vitals()";
 

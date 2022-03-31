@@ -83,7 +83,7 @@ cy.vitals({ thresholds: { cls: 0.2 } }); // Test the page against against a CLS 
 `WebVitalsConfig`:
 
 - `Optional` **url**: `string` - The url to audit. If not provided you will need to have called `cy.visit(url)` prior to the command.
-- `Optional` **firstInputSelector**: `string` - The element to click for capturing FID. Default: `"body"`.
+- `Optional` **firstInputSelector**: `string` - The element to click for capturing FID. The first matching element is used. Default: `"body"`.
 - `Optional` **thresholds**: `WebVitalsThresholds` - The thresholds to audit the web-vitals against. If not provided Google's 'Good' scores will be used (see below). If provided, any missing web-vitals signals will not be audited.
 - `Optional` **vitalsReportedTimeout**: `number` - Time in ms to wait for web-vitals to be reported before failing. Default: `10000`.
 
@@ -110,7 +110,7 @@ cy.vitals({ thresholds: { cls: 0.2 } }); // Test the page against against a CLS 
 ## How does it work?
 
 1. The url is visited with the HTML response intercepted and modified by Cypress to include the [web-vitals](https://github.com/GoogleChrome/web-vitals#from-a-cdn) module script and some code to record the web-vitals values.
-1. The body or provided element (based on `firstInputSelector`) is then clicked several times in quick succession to simulate a user clicking on the page. Note: if choosing a custom element, don't pick something that will navigate away from the page otherwise the plugin will fail to capture the web-vitals metrics.
+1. Several elements (if exist) starting with the provided element (based on `firstInputSelector`) are then clicked in quick succession to simulate a user clicking on the page. Note: if choosing a custom element, don't pick something that will navigate away from the page otherwise the plugin will fail to capture the web-vitals metrics.
 1. The audit then waits for the page load event to allow for the values of LCP and CLS to settle; which are subject to change as different parts of the page load into view.
 1. Next the audit simulates a page visibility state change [which is required for the CLS web-vital to be reported](https://www.npmjs.com/package/web-vitals#basic-usage).
 1. The audit then attempts to wait for any outstanding web-vitals to be reported for which thresholds have been provided.
