@@ -1,5 +1,7 @@
 # ChangeLog
 
+For the latest changes, please refer to the [releases page](https://github.com/cmorten/cypress-web-vitals/releases).
+
 ## [0.4.0] - 02-11-2021
 
 - [#1] bug: fix script injection when head tag has whitespace or attributes (#2) @jonthemiller
