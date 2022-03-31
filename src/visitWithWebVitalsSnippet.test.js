@@ -17,7 +17,7 @@ describe("visitWithWebVitalsSnippet", () => {
 
   it("should intercept the url", () => {
     expect(global.cy.intercept).toHaveBeenCalledWith(
-      mockUrl,
+      { method: "GET", url: mockUrl, times: 1 },
       expect.any(Function)
     );
   });

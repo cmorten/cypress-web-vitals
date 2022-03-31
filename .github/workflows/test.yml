@@ -29,6 +29,9 @@ jobs:
       - name: Lint
         run: yarn lint
 
+      - name: Test
+        run: yarn test
+
   examples:
     runs-on: ubuntu-latest
     container: cypress/browsers:node14.17.0-chrome91-ff89
