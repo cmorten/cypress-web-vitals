@@ -67,4 +67,29 @@ describe("visitWithWebVitalsSnippet", () => {
   it("should visit the url without logging", () => {
     expect(global.cy.visit).toHaveBeenCalledWith(mockUrl, { log: false });
   });
+
+  describe("only targets first head tag", () => {
+    const mockResponse = {
+      send: jest.fn(),
+      body: "<html><head><title>App</title><script>/** comment with <head> in it **/</script></head><body></body></html>",
+    };
+
+    beforeEach(() => {
+      const mockRequest = {
+        continue: (fn) => fn(mockResponse),
+      };
+
+      global.cy.intercept.mock.calls[0][1](mockRequest);
+    });
+
+    it("should only add the vitals snippet following the first <head> in the HTML response", () => {
+      expect(mockResponse.send).toHaveBeenCalledWith(
+        `<html><head>${WEB_VITALS_SNIPPET}<title>App</title><script>/** comment with <head> in it **/</script></head><body></body></html>`
+      );
+    });
+  });
+
+  it("should visit the url without logging", () => {
+    expect(global.cy.visit).toHaveBeenCalledWith(mockUrl, { log: false });
+  });
 });
