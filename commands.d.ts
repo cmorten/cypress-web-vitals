@@ -66,6 +66,6 @@ declare namespace Cypress {
      * cy.vitals({ thresholds, url, selector });
      * @param {WebVitalsConfig} webVitalsConfig configuration
      */
-    vitals(webVitalsConfig: WebVitalsConfig);
+    vitals(webVitalsConfig?: WebVitalsConfig);
   }
 }

@@ -9,7 +9,7 @@
     "url": "https://github.com/cmorten/cypress-web-vitals"
   },
   "main": "commands.js",
-  "types": "index.d.ts",
+  "types": "commands.d.ts",
   "scripts": {
     "ci": "yarn lint && yarn test",
     "lint": "eslint ./src ./examples",
