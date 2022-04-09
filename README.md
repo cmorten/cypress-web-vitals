@@ -127,6 +127,8 @@ describe("web-vitals", () => {
 });
 ```
 
+The report results contains values for _all signals_, not just the values specified in the provided or default `thresholds`. Signals that couldn't be obtained are reported as `null`.
+
 ## How does it work?
 
 1. The url is visited with the HTML response intercepted and modified by Cypress to include the [web-vitals](https://github.com/GoogleChrome/web-vitals#from-a-cdn) module script and some code to record the web-vitals values.
