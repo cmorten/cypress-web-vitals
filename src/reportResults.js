@@ -14,7 +14,7 @@ const reportResults =
       results: {},
     };
 
-    return cy.window({ log: false }).then((win) => {
+    return cy.window({ log: false }).then(async (win) => {
       for (const vital of WEB_VITALS_KEYS) {
         const threshold = thresholds[vital];
         const vitalUsed = typeof threshold !== "undefined";
@@ -56,7 +56,7 @@ const reportResults =
       }
 
       if (onReport) {
-        onReport(report);
+        cy.wrap(null, { log: false }).then(async () => await onReport(report));
       }
 
       if (errors.length) {
@@ -67,7 +67,9 @@ const reportResults =
             ? `${LOG_SLUG} - A threshold has been crossed.${formattedErrors}`
             : `${LOG_SLUG} - Some thresholds have been crossed.${formattedErrors}`;
 
-        throw new Error(message);
+        return cy.wrap(message, { log: false, timeout: 0 }).then((m) => {
+          throw new Error(m);
+        });
       }
     });
   };

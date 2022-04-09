@@ -20,6 +20,9 @@ describe("reportResults", () => {
     global.cy = {
       window: jest.fn(),
       log: jest.fn(),
+      wrap: jest
+        .fn()
+        .mockImplementation((value, _options) => Promise.resolve(value)),
     };
   });
 
@@ -126,10 +129,15 @@ describe("reportResults", () => {
       });
     });
 
-    it("throw an error", () => {
-      expect(error.message).toEqual(
-        "cy.vitals() - A threshold has been crossed.\n\nfid web-vital is 10, and is over the 5 threshold."
-      );
+    it("throw an error, wrapped by Cypress to defer it till after the onReport completes", () => {
+      const expectedMessage =
+        "cy.vitals() - A threshold has been crossed.\n\nfid web-vital is 10, and is over the 5 threshold.";
+
+      expect(cy.wrap).toHaveBeenCalledWith(expectedMessage, {
+        log: false,
+        timeout: 0,
+      });
+      expect(error.message).toEqual(expectedMessage);
     });
   });
 
@@ -240,9 +248,14 @@ describe("reportResults", () => {
     });
 
     it("throw an error", () => {
-      expect(error.message).toEqual(
-        "cy.vitals() - Some thresholds have been crossed.\n\nlcp web-vital is 5.1, and is over the 5 threshold.\nfid web-vital is 11, and is over the 5 threshold.\ncls web-vital is 12, and is over the 5 threshold."
-      );
+      const expectedMessage =
+        "cy.vitals() - Some thresholds have been crossed.\n\nlcp web-vital is 5.1, and is over the 5 threshold.\nfid web-vital is 11, and is over the 5 threshold.\ncls web-vital is 12, and is over the 5 threshold.";
+
+      expect(cy.wrap).toHaveBeenCalledWith(expectedMessage, {
+        log: false,
+        timeout: 0,
+      });
+      expect(error.message).toEqual(expectedMessage);
     });
   });
 
