@@ -1,13 +1,13 @@
 const { WEB_VITALS_ACCESSOR_KEY } = require("./constants");
 
-const allVitalsReported = (win, thresholds) => {
+const allVitalsReported = (win, vitals) => {
   const reports = win[WEB_VITALS_ACCESSOR_KEY];
 
   if (!reports) {
     return false;
   }
 
-  for (const key of Object.keys(thresholds)) {
+  for (const key of vitals) {
     if (!reports[key]) {
       return false;
     }
@@ -17,7 +17,7 @@ const allVitalsReported = (win, thresholds) => {
 };
 
 const waitForVitals =
-  ({ thresholds, vitalsReportedTimeout }) =>
+  ({ vitals, vitalsReportedTimeout }) =>
   () => {
     return cy
       .window({ log: false })
@@ -26,13 +26,13 @@ const waitForVitals =
           let timeout;
 
           function handleWebVital() {
-            if (allVitalsReported(win, thresholds)) {
+            if (allVitalsReported(win, vitals)) {
               clearTimeout(timeout);
               resolve();
             }
           }
 
-          if (allVitalsReported(win, thresholds)) {
+          if (allVitalsReported(win, vitals)) {
             resolve();
           } else {
             win.addEventListener(WEB_VITALS_ACCESSOR_KEY, handleWebVital);

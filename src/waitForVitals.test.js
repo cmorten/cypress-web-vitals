@@ -1,11 +1,7 @@
 const waitForVitals = require("./waitForVitals");
 const { WEB_VITALS_ACCESSOR_KEY } = require("./constants");
 
-const mockThreshold = {
-  metric1: 5,
-  metric2: 6,
-  metric3: 7,
-};
+const mockVitals = ["metric1", "metric2", "metric3"];
 
 describe("waitForVitals", () => {
   let mockWindow, resultPromise;
@@ -38,7 +34,7 @@ describe("waitForVitals", () => {
       }));
 
       resultPromise = await waitForVitals({
-        thresholds: mockThreshold,
+        vitals: mockVitals,
         vitalsReportedTimeout: 10000,
       })();
     });
@@ -73,7 +69,7 @@ describe("waitForVitals", () => {
       resultPromisePending = true;
 
       resultPromise = waitForVitals({
-        thresholds: mockThreshold,
+        vitals: mockVitals,
         vitalsReportedTimeout: 10000,
       })();
 
@@ -152,7 +148,7 @@ describe("waitForVitals", () => {
       resultPromisePending = true;
 
       resultPromise = waitForVitals({
-        thresholds: mockThreshold,
+        vitals: mockVitals,
         vitalsReportedTimeout: 10000,
       })();
 

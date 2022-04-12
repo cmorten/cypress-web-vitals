@@ -1,11 +1,17 @@
 const reportResults = require("./reportResults");
-const { WEB_VITALS_ACCESSOR_KEY, LOG_SLUG } = require("./constants");
+const {
+  WEB_VITALS_ACCESSOR_KEY,
+  WEB_VITALS_KEYS,
+  LOG_SLUG,
+} = require("./constants");
 
 const mockThresholds = {
-  metric1: 5,
-  metric2: 5,
-  metric3: 5,
+  [WEB_VITALS_KEYS[0]]: 5,
+  [WEB_VITALS_KEYS[1]]: 5,
+  [WEB_VITALS_KEYS[2]]: 5,
 };
+
+const mockOnReport = jest.fn();
 
 describe("reportResults", () => {
   beforeEach(() => {
@@ -14,22 +20,28 @@ describe("reportResults", () => {
     global.cy = {
       window: jest.fn(),
       log: jest.fn(),
+      wrap: jest
+        .fn()
+        .mockImplementation((value, _options) => Promise.resolve(value)),
     };
   });
 
   describe("when all metrics are below the thresholds", () => {
     const mockWindow = {
       [WEB_VITALS_ACCESSOR_KEY]: {
-        metric1: { value: 1 },
-        metric2: { value: 2 },
-        metric3: { value: 3 },
+        [WEB_VITALS_KEYS[0]]: { value: 1 },
+        [WEB_VITALS_KEYS[1]]: { value: 2 },
+        [WEB_VITALS_KEYS[2]]: { value: 3 },
       },
     };
 
     beforeEach(async () => {
       global.cy.window.mockResolvedValue(mockWindow);
 
-      await reportResults(mockThresholds)();
+      await reportResults({
+        thresholds: mockThresholds,
+        onReport: mockOnReport,
+      })();
     });
 
     it("should log the results", () => {
@@ -37,17 +49,30 @@ describe("reportResults", () => {
         `-------- ${LOG_SLUG} --------`
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `metric1 web-vital is 1, and threshold was 5.`
+        `lcp web-vital is 1, and threshold was 5.`
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `metric2 web-vital is 2, and threshold was 5.`
+        `fid web-vital is 2, and threshold was 5.`
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `metric3 web-vital is 3, and threshold was 5.`
+        `cls web-vital is 3, and threshold was 5.`
       );
       expect(global.cy.log).toHaveBeenCalledWith(
         "-----------------------------"
       );
+    });
+
+    it("should pass the report to the callback", () => {
+      expect(mockOnReport).toHaveBeenCalledWith({
+        thresholds: mockThresholds,
+        results: {
+          lcp: 1,
+          fid: 2,
+          cls: 3,
+          fcp: null,
+          ttfb: null,
+        },
+      });
     });
   });
 
@@ -56,9 +81,9 @@ describe("reportResults", () => {
 
     const mockWindow = {
       [WEB_VITALS_ACCESSOR_KEY]: {
-        metric1: { value: 1 },
-        metric2: { value: 10 },
-        metric3: { value: 5 },
+        [WEB_VITALS_KEYS[0]]: { value: 1 },
+        [WEB_VITALS_KEYS[1]]: { value: 10 },
+        [WEB_VITALS_KEYS[2]]: { value: 5 },
       },
     };
 
@@ -67,7 +92,10 @@ describe("reportResults", () => {
       error = undefined;
 
       try {
-        await reportResults(mockThresholds)();
+        await reportResults({
+          thresholds: mockThresholds,
+          onReport: mockOnReport,
+        })();
       } catch (e) {
         error = e;
       }
@@ -78,38 +106,57 @@ describe("reportResults", () => {
         `-------- ${LOG_SLUG} --------`
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `metric1 web-vital is 1, and threshold was 5.`
+        `lcp web-vital is 1, and threshold was 5.`
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `metric3 web-vital is 5, and threshold was 5.`
+        `cls web-vital is 5, and threshold was 5.`
       );
       expect(global.cy.log).toHaveBeenCalledWith(
         "-----------------------------"
       );
     });
 
-    it("throw an error", () => {
-      expect(error.message).toEqual(
-        "cy.vitals() - A threshold has been crossed.\n\nmetric2 web-vital is 10, and is over the 5 threshold."
-      );
+    it("should pass the report to the callback", () => {
+      expect(mockOnReport).toHaveBeenCalledWith({
+        thresholds: mockThresholds,
+        results: {
+          lcp: 1,
+          fid: 10,
+          cls: 5,
+          fcp: null,
+          ttfb: null,
+        },
+      });
+    });
+
+    it("throw an error, wrapped by Cypress to defer it till after the onReport completes", () => {
+      const expectedMessage =
+        "cy.vitals() - A threshold has been crossed.\n\nfid web-vital is 10, and is over the 5 threshold.";
+
+      expect(cy.wrap).toHaveBeenCalledWith(expectedMessage, {
+        log: false,
+        timeout: 0,
+      });
+      expect(error.message).toEqual(expectedMessage);
     });
   });
 
   describe("when one metric cannot be calculated", () => {
-    let error;
-
     const mockWindow = {
       [WEB_VITALS_ACCESSOR_KEY]: {
-        metric1: { value: 1 },
-        metric2: undefined,
-        metric3: { value: 0.1 },
+        [WEB_VITALS_KEYS[0]]: { value: 1 },
+        [WEB_VITALS_KEYS[1]]: undefined,
+        [WEB_VITALS_KEYS[2]]: { value: 0.1 },
       },
     };
 
     beforeEach(async () => {
       global.cy.window.mockResolvedValue(mockWindow);
 
-      await reportResults(mockThresholds)();
+      await reportResults({
+        thresholds: mockThresholds,
+        onReport: mockOnReport,
+      })();
     });
 
     it("should log the results", () => {
@@ -117,17 +164,30 @@ describe("reportResults", () => {
         `-------- ${LOG_SLUG} --------`
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `metric1 web-vital is 1, and threshold was 5.`
+        `lcp web-vital is 1, and threshold was 5.`
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `metric2 web-vital could not be calculated, and threshold was 5. Skipping...`
+        `fid web-vital could not be calculated, and threshold was 5. Skipping...`
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `metric3 web-vital is 0.1, and threshold was 5.`
+        `cls web-vital is 0.1, and threshold was 5.`
       );
       expect(global.cy.log).toHaveBeenCalledWith(
         "-----------------------------"
       );
+    });
+
+    it("should pass the report to the callback", () => {
+      expect(mockOnReport).toHaveBeenCalledWith({
+        thresholds: mockThresholds,
+        results: {
+          lcp: 1,
+          fid: null,
+          cls: 0.1,
+          fcp: null,
+          ttfb: null,
+        },
+      });
     });
   });
 
@@ -136,9 +196,9 @@ describe("reportResults", () => {
 
     const mockWindow = {
       [WEB_VITALS_ACCESSOR_KEY]: {
-        metric1: { value: 5.1 },
-        metric2: { value: 11 },
-        metric3: { value: 12 },
+        [WEB_VITALS_KEYS[0]]: { value: 5.1 },
+        [WEB_VITALS_KEYS[1]]: { value: 11 },
+        [WEB_VITALS_KEYS[2]]: { value: 12 },
       },
     };
 
@@ -147,19 +207,127 @@ describe("reportResults", () => {
       error = undefined;
 
       try {
-        await reportResults(mockThresholds)();
+        await reportResults({
+          thresholds: mockThresholds,
+          onReport: mockOnReport,
+        })();
       } catch (e) {
         error = e;
       }
     });
 
     it("should log the results", () => {
-      expect(global.cy.log).not.toHaveBeenCalled();
+      expect(global.cy.log).toHaveBeenCalledWith(
+        `-------- ${LOG_SLUG} --------`
+      );
+      expect(global.cy.log).toHaveBeenCalledWith(
+        `lcp web-vital is 5.1, and is over the 5 threshold.`
+      );
+      expect(global.cy.log).toHaveBeenCalledWith(
+        `fid web-vital is 11, and is over the 5 threshold.`
+      );
+      expect(global.cy.log).toHaveBeenCalledWith(
+        `cls web-vital is 12, and is over the 5 threshold.`
+      );
+      expect(global.cy.log).toHaveBeenCalledWith(
+        "-----------------------------"
+      );
+    });
+
+    it("should pass the report to the callback", () => {
+      expect(mockOnReport).toHaveBeenCalledWith({
+        thresholds: mockThresholds,
+        results: {
+          lcp: 5.1,
+          fid: 11,
+          cls: 12,
+          fcp: null,
+          ttfb: null,
+        },
+      });
     });
 
     it("throw an error", () => {
-      expect(error.message).toEqual(
-        "cy.vitals() - Some thresholds have been crossed.\n\nmetric1 web-vital is 5.1, and is over the 5 threshold.\nmetric2 web-vital is 11, and is over the 5 threshold.\nmetric3 web-vital is 12, and is over the 5 threshold."
+      const expectedMessage =
+        "cy.vitals() - Some thresholds have been crossed.\n\nlcp web-vital is 5.1, and is over the 5 threshold.\nfid web-vital is 11, and is over the 5 threshold.\ncls web-vital is 12, and is over the 5 threshold.";
+
+      expect(cy.wrap).toHaveBeenCalledWith(expectedMessage, {
+        log: false,
+        timeout: 0,
+      });
+      expect(error.message).toEqual(expectedMessage);
+    });
+  });
+
+  describe("when no thresholds are provided", () => {
+    const mockWindow = {
+      [WEB_VITALS_ACCESSOR_KEY]: {
+        [WEB_VITALS_KEYS[0]]: { value: 1 },
+        [WEB_VITALS_KEYS[1]]: { value: 2 },
+        [WEB_VITALS_KEYS[2]]: { value: 3 },
+      },
+    };
+
+    beforeEach(async () => {
+      global.cy.window.mockResolvedValue(mockWindow);
+
+      await reportResults({
+        thresholds: {},
+        onReport: mockOnReport,
+      })();
+    });
+
+    it("should not log any results (as there are none!)", () => {
+      expect(global.cy.log).not.toHaveBeenCalled();
+    });
+
+    it("should pass the report to the callback", () => {
+      expect(mockOnReport).toHaveBeenCalledWith({
+        thresholds: {},
+        results: {
+          lcp: 1,
+          fid: 2,
+          cls: 3,
+          fcp: null,
+          ttfb: null,
+        },
+      });
+    });
+  });
+
+  describe("when no custom report callback is provided", () => {
+    const mockWindow = {
+      [WEB_VITALS_ACCESSOR_KEY]: {
+        [WEB_VITALS_KEYS[0]]: { value: 1 },
+        [WEB_VITALS_KEYS[1]]: { value: 2 },
+        [WEB_VITALS_KEYS[2]]: { value: 3 },
+      },
+    };
+
+    beforeEach(async () => {
+      global.cy.window.mockResolvedValue(mockWindow);
+
+      await reportResults({
+        thresholds: mockThresholds,
+        onReport: undefined,
+      })();
+    });
+
+    it("should log the results", () => {
+      expect(global.cy.log).toHaveBeenCalledWith(
+        `-------- ${LOG_SLUG} --------`
+      );
+      expect(global.cy.log).toHaveBeenCalledWith(
+        `lcp web-vital is 1, and threshold was 5.`
+      );
+      expect(global.cy.log).toHaveBeenCalledWith(
+        `fid web-vital is 2, and threshold was 5.`
+      );
+      expect(global.cy.log).toHaveBeenCalledWith(
+        `cls web-vital is 3, and threshold was 5.`
+      );
+      expect(global.cy.log).toHaveBeenCalledWith(
+        "-----------------------------"
       );
     });
   });

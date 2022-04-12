@@ -4,6 +4,8 @@ const {
   DEFAULT_FIRST_INPUT_SELECTOR,
   LOG_SLUG,
   SUPPORTED_BROWSERS,
+  WEB_VITALS_KEYS,
+  WEB_VITALS_KEYS_WITHOUT_CLS,
 } = require("./constants");
 const getUrl = require("./getUrl");
 const visitWithWebVitalsSnippet = require("./visitWithWebVitalsSnippet");
@@ -15,8 +17,9 @@ const reportResults = require("./reportResults");
 
 const vitalsCommandHandler = (
   {
-    thresholds,
     firstInputSelector = DEFAULT_FIRST_INPUT_SELECTOR,
+    onReport,
+    thresholds,
     url,
     vitalsReportedTimeout = DEFAULT_ALL_WEB_VITALS_REPORTED_TIMEOUT_MS,
   } = {
@@ -39,8 +42,6 @@ const vitalsCommandHandler = (
     thresholds = DEFAULT_THRESHOLDS;
   }
 
-  const { cls, ...thresholdsWithoutCls } = thresholds;
-
   return getUrl(url)
     .then(visitWithWebVitalsSnippet)
     .then(performFirstInput(firstInputSelector))
@@ -50,11 +51,14 @@ const vitalsCommandHandler = (
     .then(performFirstInput("body"))
     .then(waitForPageLoad)
     .then(
-      waitForVitals({ thresholds: thresholdsWithoutCls, vitalsReportedTimeout })
+      waitForVitals({
+        vitals: WEB_VITALS_KEYS_WITHOUT_CLS,
+        vitalsReportedTimeout,
+      })
     )
     .then(triggerPageHideForReportingCls)
-    .then(waitForVitals({ thresholds, vitalsReportedTimeout }))
-    .then(reportResults(thresholds));
+    .then(waitForVitals({ vitals: WEB_VITALS_KEYS, vitalsReportedTimeout }))
+    .then(reportResults({ thresholds, onReport }));
 };
 
 module.exports = vitalsCommandHandler;

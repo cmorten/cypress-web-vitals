@@ -1,8 +1,9 @@
 const {
   DEFAULT_ALL_WEB_VITALS_REPORTED_TIMEOUT_MS,
-  LOG_SLUG,
   DEFAULT_FIRST_INPUT_SELECTOR,
   DEFAULT_THRESHOLDS,
+  LOG_SLUG,
+  WEB_VITALS_KEYS,
 } = require("./constants");
 
 jest.mock("./getUrl", () => jest.fn());
@@ -24,6 +25,7 @@ const waitForVitals = require("./waitForVitals");
 
 const mockUrl = Symbol("test-url");
 const mockFirstInputSelector = Symbol("test-first-input-selector");
+const mockOnReport = jest.fn();
 const mockThresholds = Symbol("test-thresholds");
 const mockVitalsReportedTimeout = Symbol("test-vitals-reported-timeout");
 
@@ -111,13 +113,15 @@ describe("vitalsCommandHandler", () => {
 
       it("should wait for all vitals to have been reported", () => {
         expect(waitForVitals).toHaveBeenCalledWith({
-          thresholds: DEFAULT_THRESHOLDS,
+          vitals: WEB_VITALS_KEYS,
           vitalsReportedTimeout: DEFAULT_ALL_WEB_VITALS_REPORTED_TIMEOUT_MS,
         });
       });
 
       it("should report on the results using the default thresholds", () => {
-        expect(reportResults).toHaveBeenCalledWith(DEFAULT_THRESHOLDS);
+        expect(reportResults).toHaveBeenCalledWith({
+          thresholds: DEFAULT_THRESHOLDS,
+        });
       });
     });
 
@@ -158,13 +162,15 @@ describe("vitalsCommandHandler", () => {
 
       it("should wait for all vitals to have been reported", () => {
         expect(waitForVitals).toHaveBeenCalledWith({
-          thresholds: DEFAULT_THRESHOLDS,
+          vitals: WEB_VITALS_KEYS,
           vitalsReportedTimeout: DEFAULT_ALL_WEB_VITALS_REPORTED_TIMEOUT_MS,
         });
       });
 
       it("should report on the results using the default thresholds", () => {
-        expect(reportResults).toHaveBeenCalledWith(DEFAULT_THRESHOLDS);
+        expect(reportResults).toHaveBeenCalledWith({
+          thresholds: DEFAULT_THRESHOLDS,
+        });
       });
     });
 
@@ -203,13 +209,65 @@ describe("vitalsCommandHandler", () => {
 
       it("should wait for all vitals to have been reported", () => {
         expect(waitForVitals).toHaveBeenCalledWith({
-          thresholds: DEFAULT_THRESHOLDS,
+          vitals: WEB_VITALS_KEYS,
           vitalsReportedTimeout: DEFAULT_ALL_WEB_VITALS_REPORTED_TIMEOUT_MS,
         });
       });
 
       it("should report on the results using the default thresholds", () => {
-        expect(reportResults).toHaveBeenCalledWith(DEFAULT_THRESHOLDS);
+        expect(reportResults).toHaveBeenCalledWith({
+          thresholds: DEFAULT_THRESHOLDS,
+        });
+      });
+    });
+
+    describe("when a custom report callback is provided", () => {
+      beforeEach(() => {
+        vitalsCommandHandler({ onReport: mockOnReport });
+      });
+
+      it("should log a that Google's thresholds will be used", () => {
+        expect(global.cy.log).toHaveBeenCalledWith(
+          LOG_SLUG,
+          "You have not set any thresholds. The test will use Google's 'Good' scores as the thresholds for every metric."
+        );
+      });
+
+      it("should get the target url", () => {
+        expect(getUrl).toHaveBeenCalled();
+      });
+
+      it("should visit the url with the web-vitals snippet injected", () => {
+        expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith(mockUrl);
+      });
+
+      it("should perform the first input with the default selector (a few times to ensure the browser registers the click - think impatient user!)", () => {
+        expect(performFirstInput).toHaveBeenCalledWith(
+          DEFAULT_FIRST_INPUT_SELECTOR
+        );
+        expect(performFirstInput).toHaveBeenCalledTimes(5);
+      });
+
+      it("should wait for the onload event", () => {
+        expect(waitForPageLoad).toHaveBeenCalled();
+      });
+
+      it("should trigger a page hide so CLS is reported", () => {
+        expect(triggerPageHideForReportingCls).toHaveBeenCalled();
+      });
+
+      it("should wait for all vitals to have been reported", () => {
+        expect(waitForVitals).toHaveBeenCalledWith({
+          vitals: WEB_VITALS_KEYS,
+          vitalsReportedTimeout: DEFAULT_ALL_WEB_VITALS_REPORTED_TIMEOUT_MS,
+        });
+      });
+
+      it("should report on the results using the default thresholds", () => {
+        expect(reportResults).toHaveBeenCalledWith({
+          thresholds: DEFAULT_THRESHOLDS,
+          onReport: mockOnReport,
+        });
       });
     });
 
@@ -243,13 +301,15 @@ describe("vitalsCommandHandler", () => {
 
       it("should wait for all vitals to have been reported", () => {
         expect(waitForVitals).toHaveBeenCalledWith({
-          thresholds: mockThresholds,
+          vitals: WEB_VITALS_KEYS,
           vitalsReportedTimeout: DEFAULT_ALL_WEB_VITALS_REPORTED_TIMEOUT_MS,
         });
       });
 
       it("should report on the results using the provided thresholds", () => {
-        expect(reportResults).toHaveBeenCalledWith(mockThresholds);
+        expect(reportResults).toHaveBeenCalledWith({
+          thresholds: mockThresholds,
+        });
       });
     });
 
@@ -285,13 +345,15 @@ describe("vitalsCommandHandler", () => {
 
       it("should wait for all vitals to have been reported", () => {
         expect(waitForVitals).toHaveBeenCalledWith({
-          thresholds: DEFAULT_THRESHOLDS,
+          vitals: WEB_VITALS_KEYS,
           vitalsReportedTimeout: mockVitalsReportedTimeout,
         });
       });
 
       it("should report on the results using the default thresholds", () => {
-        expect(reportResults).toHaveBeenCalledWith(DEFAULT_THRESHOLDS);
+        expect(reportResults).toHaveBeenCalledWith({
+          thresholds: DEFAULT_THRESHOLDS,
+        });
       });
     });
   });
