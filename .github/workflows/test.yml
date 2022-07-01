@@ -17,18 +17,14 @@ jobs:
         run: |
           git config --global core.autocrlf false
           git config --global core.eol lf
-
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
           node-version: "16"
-
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-
       - name: Lint
         run: yarn lint
-
       - name: Test
         run: yarn test
 
@@ -37,13 +33,13 @@ jobs:
     container: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
     steps:
       - uses: actions/checkout@v2
-      - uses: cypress-io/github-action@v4
-        with:
-          browser: chrome
-          project: ./examples/9.x
-          cache-key: 9.x
-      - uses: cypress-io/github-action@v4
-        with:
-          browser: chrome
-          project: ./examples/10.x
-          cache-key: 10.x
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Cypress 9.x
+        run: |
+          yarn --cwd examples/9.x install --frozen-lockfile
+          yarn --cwd examples/9.x cy:run
+      - name: Cypress 10.x
+        run: |
+          yarn --cwd examples/10.x install --frozen-lockfile
+          yarn --cwd examples/10.x cy:run
