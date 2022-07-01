@@ -17,17 +17,17 @@
     "test": "jest ./src --coverage"
   },
   "devDependencies": {
-    "cypress": "^9.5.3",
-    "cypress-real-events": "^1.7.0",
-    "eslint": "^8.12.0",
+    "cypress": "^10.3.0",
+    "cypress-real-events": "^1.7.1",
+    "eslint": "^8.18.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-cypress": "^2.12.1",
-    "eslint-plugin-prettier": "^4.0.0",
-    "jest": "^27.5.1",
-    "prettier": "^2.6.1"
+    "eslint-plugin-prettier": "^4.2.1",
+    "jest": "^28.1.2",
+    "prettier": "^2.7.1"
   },
   "peerDependencies": {
-    "cypress": "^4.x || ^5.x || ^6.x || ^7.x || ^8.x || ^9.x",
+    "cypress": "^4.x || ^5.x || ^6.x || ^7.x || ^8.x || ^9.x || ^10.x",
     "cypress-real-events": "^1.x"
   }
 }
