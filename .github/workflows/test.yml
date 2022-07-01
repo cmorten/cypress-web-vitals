@@ -37,11 +37,13 @@ jobs:
     container: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
     steps:
       - uses: actions/checkout@v2
-      - uses: cypress-io/github-action@v3
+      - uses: cypress-io/github-action@v4
         with:
           browser: chrome
           project: ./examples/9.x
+          cache-key: 9.x
       - uses: cypress-io/github-action@v4
         with:
           browser: chrome
           project: ./examples/10.x
+          cache-key: 10.x
