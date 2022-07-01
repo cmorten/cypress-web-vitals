@@ -1,7 +1,7 @@
 {
-  "name": "cypress-web-vitals-examples",
+  "name": "cypress-web-vitals-examples-9.x",
   "version": "1.0.0",
-  "description": "web-vitals command examples",
+  "description": "web-vitals command examples for Cypress 9.x",
   "author": "Craig Morten <craig.morten@hotmail.co.uk>",
   "license": "MIT",
   "main": "index.js",
@@ -10,7 +10,7 @@
     "cy:run": "cypress run --headless --browser chrome"
   },
   "devDependencies": {
-    "cypress": "^9.5.3",
-    "cypress-real-events": "^1.7.0"
+    "cypress": "^9.7.0",
+    "cypress-real-events": "^1.7.1"
   }
 }

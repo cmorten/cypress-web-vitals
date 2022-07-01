@@ -34,10 +34,13 @@ jobs:
 
   examples:
     runs-on: ubuntu-latest
-    container: cypress/browsers:node14.17.0-chrome91-ff89
+    container: cypress/browsers:node16.14.2-slim-chrome100-ff99-edge
+    strategy:
+      matrix:
+        version: [9.x, 10.x]
     steps:
       - uses: actions/checkout@v2
       - uses: cypress-io/github-action@v2
         with:
           browser: chrome
-          project: ./examples
+          project: ./examples/${{ matrix.version }}

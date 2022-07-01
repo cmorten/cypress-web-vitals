@@ -60,7 +60,7 @@ describe("web-vitals", () => {
 
 ## Examples
 
-An example Cypress test setup with a variety of tests using `cypress-web-vitals` is available in the [`./examples` directory](./examples).
+Example Cypress test setups with a variety of tests using `cypress-web-vitals` for both Cypress 9.x and 10.x are available in the [`./examples` directory](./examples).
 
 ## API
 
