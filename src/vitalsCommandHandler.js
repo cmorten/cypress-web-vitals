@@ -21,6 +21,8 @@ const vitalsCommandHandler = (
     onReport,
     thresholds,
     url,
+    auth,
+    headers,
     vitalsReportedTimeout = DEFAULT_ALL_WEB_VITALS_REPORTED_TIMEOUT_MS,
   } = {
     firstInputSelector: DEFAULT_FIRST_INPUT_SELECTOR,
@@ -43,7 +45,7 @@ const vitalsCommandHandler = (
   }
 
   return getUrl(url)
-    .then(visitWithWebVitalsSnippet)
+    .then(() => visitWithWebVitalsSnippet(url, auth, headers))
     .then(performFirstInput(firstInputSelector))
     .then(performFirstInput("main"))
     .then(performFirstInput("header"))
