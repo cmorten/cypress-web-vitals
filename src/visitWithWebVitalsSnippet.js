@@ -11,7 +11,7 @@ const visitWithWebVitalsSnippet = (url, auth, headers) => {
     });
   });
 
-  return cy.visit(url, { ...auth, ...headers, log: false });
+  return cy.visit(url, { ...(auth && {auth: auth}), ...(headers && {headers: headers}), log: false });
 };
 
 module.exports = visitWithWebVitalsSnippet;
