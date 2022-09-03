@@ -89,7 +89,7 @@ describe("vitalsCommandHandler", () => {
       });
 
       it("should visit the url with the web-vitals snippet injected", () => {
-        expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith(mockUrl);
+        expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith(mockUrl, undefined, undefined);
       });
 
       it("should perform the first input with the default selector and other common elements (a few times to ensure the browser registers the click - think impatient user!)", () => {
@@ -142,7 +142,7 @@ describe("vitalsCommandHandler", () => {
       });
 
       it("should visit the url with the web-vitals snippet injected", () => {
-        expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith(mockUrl);
+        expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith(mockUrl, undefined, undefined);
       });
 
       it("should perform the first input with the default selector (a few times to ensure the browser registers the click - think impatient user!)", () => {
@@ -191,7 +191,7 @@ describe("vitalsCommandHandler", () => {
       });
 
       it("should visit the url with the web-vitals snippet injected", () => {
-        expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith(mockUrl);
+        expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith(mockUrl, undefined, undefined);
       });
 
       it("should perform the first input with the provided selector (a few times to ensure the browser registers the click - think impatient user!)", () => {
@@ -238,7 +238,7 @@ describe("vitalsCommandHandler", () => {
       });
 
       it("should visit the url with the web-vitals snippet injected", () => {
-        expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith(mockUrl);
+        expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith(mockUrl, undefined, undefined);
       });
 
       it("should perform the first input with the default selector (a few times to ensure the browser registers the click - think impatient user!)", () => {
@@ -281,7 +281,7 @@ describe("vitalsCommandHandler", () => {
       });
 
       it("should visit the url with the web-vitals snippet injected", () => {
-        expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith(mockUrl);
+        expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith(mockUrl, undefined, undefined);
       });
 
       it("should perform the first input with the default selector (a few times to ensure the browser registers the click - think impatient user!)", () => {
@@ -325,7 +325,7 @@ describe("vitalsCommandHandler", () => {
       });
 
       it("should visit the url with the web-vitals snippet injected", () => {
-        expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith(mockUrl);
+        expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith(mockUrl, undefined, undefined);
       });
 
       it("should perform the first input with the default selector (a few times to ensure the browser registers the click - think impatient user!)", () => {

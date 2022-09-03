@@ -45,7 +45,7 @@ const vitalsCommandHandler = (
   }
 
   return getUrl(url)
-    .then(() => visitWithWebVitalsSnippet(url, auth, headers))
+    .then((url) => visitWithWebVitalsSnippet(url, auth, headers))
     .then(performFirstInput(firstInputSelector))
     .then(performFirstInput("main"))
     .then(performFirstInput("header"))
