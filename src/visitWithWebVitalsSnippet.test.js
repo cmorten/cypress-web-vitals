@@ -12,7 +12,7 @@ describe("visitWithWebVitalsSnippet", () => {
       visit: jest.fn(),
     };
 
-    visitWithWebVitalsSnippet(mockUrl);
+    visitWithWebVitalsSnippet({ url: mockUrl });
   });
   describe("only a url was passed", () => {
     it("should intercept the url", () => {
@@ -96,11 +96,11 @@ describe("visitWithWebVitalsSnippet", () => {
   describe("additional params passed like auth + headers", () => {
     describe("auth + header params passed", () => {
       const exampleHeaders = {
-        "Accept-Encoding": "gzip, deflate"
+        "Accept-Encoding": "gzip, deflate",
       };
       const examplAuth = {
-        username: 'qa',
-        password: 'examplepass',
+        username: "qa",
+        password: "examplepass",
       };
       beforeEach(() => {
         jest.clearAllMocks();
@@ -108,17 +108,24 @@ describe("visitWithWebVitalsSnippet", () => {
           intercept: jest.fn(),
           visit: jest.fn(),
         };
-        visitWithWebVitalsSnippet(mockUrl, examplAuth, exampleHeaders);
+        visitWithWebVitalsSnippet({
+          url: mockUrl,
+          auth: examplAuth,
+          headers: exampleHeaders,
+        });
       });
       it("should visit the url without logging", () => {
-        expect(global.cy.visit).toHaveBeenCalledWith(mockUrl, {  headers: {
-          "Accept-Encoding": "gzip, deflate"
-        },
-        auth: {
-          username: 'qa',
-          password: 'examplepass',  
-        }, log: false });
+        expect(global.cy.visit).toHaveBeenCalledWith(mockUrl, {
+          headers: {
+            "Accept-Encoding": "gzip, deflate",
+          },
+          auth: {
+            username: "qa",
+            password: "examplepass",
+          },
+          log: false,
+        });
       });
-    })
-  })
+    });
+  });
 });

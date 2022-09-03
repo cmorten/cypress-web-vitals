@@ -1,6 +1,6 @@
 const { WEB_VITALS_SNIPPET } = require("./constants");
 
-const visitWithWebVitalsSnippet = (url, auth, headers) => {
+const visitWithWebVitalsSnippet = ({ url, ...rest }) => {
   cy.intercept({ method: "GET", url, times: 1 }, (req) => {
     req.continue((res) => {
       const body = res.body.replace(
@@ -10,8 +10,7 @@ const visitWithWebVitalsSnippet = (url, auth, headers) => {
       res.send(body);
     });
   });
-
-  return cy.visit(url, { ...(auth && {auth: auth}), ...(headers && {headers: headers}), log: false });
+  return cy.visit(url, { ...rest, log: false });
 };
 
 module.exports = visitWithWebVitalsSnippet;
