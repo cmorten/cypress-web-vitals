@@ -115,8 +115,8 @@ describe("visitWithWebVitalsSnippet", () => {
 
         visitWithWebVitalsSnippet({
           url: mockUrl,
-          auth: examplAuth,
-          headers: exampleHeaders,
+          auth: mockAuth,
+          headers: mockHeaders,
         });
       });
 
