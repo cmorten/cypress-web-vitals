@@ -94,6 +94,7 @@ describe("visitWithWebVitalsSnippet", () => {
       expect(global.cy.visit).toHaveBeenCalledWith(mockUrl, { log: false });
     });
   });
+
   describe("additional params passed like auth + headers", () => {
     describe("auth + header params passed", () => {
       const exampleHeaders = {
