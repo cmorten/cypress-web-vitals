@@ -10,6 +10,7 @@ const visitWithWebVitalsSnippet = ({ url, ...rest }) => {
       res.send(body);
     });
   });
+
   return cy.visit(url, { ...rest, log: false });
 };
 
