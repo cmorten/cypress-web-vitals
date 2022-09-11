@@ -97,34 +97,33 @@ describe("visitWithWebVitalsSnippet", () => {
 
   describe("additional params passed like auth + headers", () => {
     describe("auth + header params passed", () => {
-      const exampleHeaders = {
+      const mockHeaders = {
         "Accept-Encoding": "gzip, deflate",
       };
-      const examplAuth = {
+      const mockAuth = {
         username: "qa",
         password: "examplepass",
       };
+
       beforeEach(() => {
         jest.clearAllMocks();
+
         global.cy = {
           intercept: jest.fn(),
           visit: jest.fn(),
         };
+
         visitWithWebVitalsSnippet({
           url: mockUrl,
           auth: examplAuth,
           headers: exampleHeaders,
         });
       });
+
       it("should visit the url without logging", () => {
         expect(global.cy.visit).toHaveBeenCalledWith(mockUrl, {
-          headers: {
-            "Accept-Encoding": "gzip, deflate",
-          },
-          auth: {
-            username: "qa",
-            password: "examplepass",
-          },
+          headers: mockHeaders,
+          auth: mockAuth,
           log: false,
         });
       });
