@@ -14,6 +14,7 @@ describe("visitWithWebVitalsSnippet", () => {
 
     visitWithWebVitalsSnippet({ url: mockUrl });
   });
+
   describe("only a url was passed", () => {
     it("should intercept the url", () => {
       expect(global.cy.intercept).toHaveBeenCalledWith(
