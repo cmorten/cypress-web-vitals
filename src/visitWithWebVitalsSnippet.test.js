@@ -98,11 +98,11 @@ describe("visitWithWebVitalsSnippet", () => {
   describe("additional params passed like auth + headers", () => {
     describe("auth + header params passed", () => {
       const mockHeaders = {
-        "Accept-Encoding": "gzip, deflate",
+        "test-header-key": "test-header-value",
       };
       const mockAuth = {
-        username: "qa",
-        password: "examplepass",
+        username: "test-username",
+        password: "test-password",
       };
 
       beforeEach(() => {
