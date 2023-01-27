@@ -29,9 +29,5 @@
   "peerDependencies": {
     "cypress": "^4.x || ^5.x || ^6.x || ^7.x || ^8.x || ^9.x || ^10.x || ^11.0 || ^12.0",
     "cypress-real-events": "^1.x"
-  },
-  "dependencies": {
-    "terser": "^5.16.1",
-    "web-vitals": "^3.1.1"
   }
 }
