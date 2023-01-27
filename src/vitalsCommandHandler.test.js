@@ -4,6 +4,7 @@ const {
   DEFAULT_THRESHOLDS,
   LOG_SLUG,
   WEB_VITALS_KEYS,
+  WEB_VITALS_KEYS_WITHOUT_CLS_FID_LCP,
 } = require("./constants");
 
 jest.mock("./getUrl", () => jest.fn());
@@ -94,6 +95,17 @@ describe("vitalsCommandHandler", () => {
         });
       });
 
+      it("should wait for the onload event", () => {
+        expect(waitForPageLoad).toHaveBeenCalled();
+      });
+
+      it("should wait for 'first render' metrics to have been reported", () => {
+        expect(waitForVitals).toHaveBeenCalledWith({
+          vitals: WEB_VITALS_KEYS_WITHOUT_CLS_FID_LCP,
+          vitalsReportedTimeout: DEFAULT_ALL_WEB_VITALS_REPORTED_TIMEOUT_MS,
+        });
+      });
+
       it("should perform the first input with the default selector and other common elements (a few times to ensure the browser registers the click - think impatient user!)", () => {
         expect(performFirstInput).toHaveBeenCalledWith(
           DEFAULT_FIRST_INPUT_SELECTOR
@@ -103,10 +115,6 @@ describe("vitalsCommandHandler", () => {
         expect(performFirstInput).toHaveBeenCalledWith("nav");
         expect(performFirstInput).toHaveBeenCalledWith("body");
         expect(performFirstInput).toHaveBeenCalledTimes(5);
-      });
-
-      it("should wait for the onload event", () => {
-        expect(waitForPageLoad).toHaveBeenCalled();
       });
 
       it("should trigger a page hide so CLS is reported", () => {

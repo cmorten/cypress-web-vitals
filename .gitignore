@@ -5,3 +5,4 @@ node_modules
 screenshots
 videos
 .DS_Store
+yarn-error.log

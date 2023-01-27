@@ -5,7 +5,7 @@ const {
   LOG_SLUG,
   SUPPORTED_BROWSERS,
   WEB_VITALS_KEYS,
-  WEB_VITALS_KEYS_WITHOUT_CLS,
+  WEB_VITALS_KEYS_WITHOUT_CLS_FID_LCP,
 } = require("./constants");
 const getUrl = require("./getUrl");
 const visitWithWebVitalsSnippet = require("./visitWithWebVitalsSnippet");
@@ -45,18 +45,18 @@ const vitalsCommandHandler = (
 
   return getUrl(url)
     .then((url) => visitWithWebVitalsSnippet({ url, ...rest }))
+    .then(waitForPageLoad)
+    .then(
+      waitForVitals({
+        vitals: WEB_VITALS_KEYS_WITHOUT_CLS_FID_LCP,
+        vitalsReportedTimeout,
+      })
+    )
     .then(performFirstInput(firstInputSelector))
     .then(performFirstInput("main"))
     .then(performFirstInput("header"))
     .then(performFirstInput("nav"))
     .then(performFirstInput("body"))
-    .then(waitForPageLoad)
-    .then(
-      waitForVitals({
-        vitals: WEB_VITALS_KEYS_WITHOUT_CLS,
-        vitalsReportedTimeout,
-      })
-    )
     .then(triggerPageHideForReportingCls)
     .then(waitForVitals({ vitals: WEB_VITALS_KEYS, vitalsReportedTimeout }))
     .then(reportResults({ thresholds, onReport }));
