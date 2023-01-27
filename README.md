@@ -60,7 +60,7 @@ describe("web-vitals", () => {
 
 ## Examples
 
-Example Cypress test setups with a variety of tests using `cypress-web-vitals` for both Cypress 9.x and 10.x are available in the [`./examples` directory](./examples).
+Example Cypress test setups with a variety of tests using `cypress-web-vitals` for Cypress 9.x, 10.x, and 12.x are available in the [`./examples` directory](./examples).
 
 ## API
 
@@ -134,8 +134,8 @@ The report results contains values for _all signals_, not just the values specif
 ## How does it work?
 
 1. The url is visited with the HTML response intercepted and modified by Cypress to include the [web-vitals](https://github.com/GoogleChrome/web-vitals#from-a-cdn) module script and some code to record the web-vitals values.
-1. Several elements (if exist) starting with the provided element (based on `firstInputSelector`) are then clicked in quick succession to simulate a user clicking on the page. Note: if choosing a custom element, don't pick something that will navigate away from the page otherwise the plugin will fail to capture the web-vitals metrics.
 1. The audit then waits for the page load event to allow for the values of LCP and CLS to settle; which are subject to change as different parts of the page load into view.
+1. Several elements (if exist) starting with the provided element (based on `firstInputSelector`) are then clicked in quick succession to simulate a user clicking on the page to aid FID reporting. Note: if choosing a custom element, don't pick something that will navigate away from the page otherwise the plugin will fail to capture the web-vitals metrics.
 1. Next the audit simulates a page visibility state change [which is required for the CLS web-vital to be reported](https://www.npmjs.com/package/web-vitals#basic-usage).
 1. The audit then attempts to wait for any outstanding web-vitals to be reported for which thresholds have been provided.
 1. Finally the web-vitals values are compared against the thresholds, logging successful results and throwing an error for any unsuccessful signals. Note: if the audit was unable to record a web-vital then it is logged, _but the test will not fail_.
