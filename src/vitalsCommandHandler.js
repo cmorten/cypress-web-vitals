@@ -53,7 +53,6 @@ const vitalsCommandHandler = (
       })
     )
     .then(performFirstInput(firstInputSelector))
-    .then(performFirstInput("body"))
     .then(triggerPageHideForReportingCls)
     .then(waitForVitals({ vitals: WEB_VITALS_KEYS, vitalsReportedTimeout }))
     .then(reportResults({ thresholds, onReport }));
