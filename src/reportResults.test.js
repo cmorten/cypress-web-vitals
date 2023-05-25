@@ -39,6 +39,7 @@ describe("reportResults", () => {
       global.cy.window.mockResolvedValue(mockWindow);
 
       await reportResults({
+        strict: false,
         thresholds: mockThresholds,
         onReport: mockOnReport,
       })();
@@ -64,6 +65,7 @@ describe("reportResults", () => {
 
     it("should pass the report to the callback", () => {
       expect(mockOnReport).toHaveBeenCalledWith({
+        strict: false,
         thresholds: mockThresholds,
         results: {
           lcp: 1,
@@ -93,6 +95,7 @@ describe("reportResults", () => {
 
       try {
         await reportResults({
+          strict: false,
           thresholds: mockThresholds,
           onReport: mockOnReport,
         })();
@@ -118,6 +121,7 @@ describe("reportResults", () => {
 
     it("should pass the report to the callback", () => {
       expect(mockOnReport).toHaveBeenCalledWith({
+        strict: false,
         thresholds: mockThresholds,
         results: {
           lcp: 1,
@@ -154,6 +158,7 @@ describe("reportResults", () => {
       global.cy.window.mockResolvedValue(mockWindow);
 
       await reportResults({
+        strict: false,
         thresholds: mockThresholds,
         onReport: mockOnReport,
       })();
@@ -179,6 +184,7 @@ describe("reportResults", () => {
 
     it("should pass the report to the callback", () => {
       expect(mockOnReport).toHaveBeenCalledWith({
+        strict: false,
         thresholds: mockThresholds,
         results: {
           lcp: 1,
@@ -348,6 +354,7 @@ describe("reportResults", () => {
 
       try {
         await reportResults({
+          strict: false,
           thresholds: mockThresholds,
           onReport: mockOnReport,
         })();
@@ -376,6 +383,7 @@ describe("reportResults", () => {
 
     it("should pass the report to the callback", () => {
       expect(mockOnReport).toHaveBeenCalledWith({
+        strict: false,
         thresholds: mockThresholds,
         results: {
           lcp: 5.1,
@@ -412,6 +420,7 @@ describe("reportResults", () => {
       global.cy.window.mockResolvedValue(mockWindow);
 
       await reportResults({
+        strict: false,
         thresholds: {},
         onReport: mockOnReport,
       })();
@@ -423,6 +432,7 @@ describe("reportResults", () => {
 
     it("should pass the report to the callback", () => {
       expect(mockOnReport).toHaveBeenCalledWith({
+        strict: false,
         thresholds: {},
         results: {
           lcp: 1,
@@ -448,6 +458,7 @@ describe("reportResults", () => {
       global.cy.window.mockResolvedValue(mockWindow);
 
       await reportResults({
+        strict: false,
         thresholds: mockThresholds,
         onReport: undefined,
       })();
