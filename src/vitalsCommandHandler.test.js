@@ -5,6 +5,7 @@ const {
   LOG_SLUG,
   WEB_VITALS_KEYS,
   WEB_VITALS_KEYS_WITHOUT_CLS_FID_LCP,
+  DEFAULT_STRICT_MODE,
 } = require("./constants");
 
 jest.mock("./getUrl", () => jest.fn());
@@ -128,8 +129,9 @@ describe("vitalsCommandHandler", () => {
         });
       });
 
-      it("should report on the results using the default thresholds", () => {
+      it("should report on the results using the default thresholds and strictness", () => {
         expect(reportResults).toHaveBeenCalledWith({
+          strict: DEFAULT_STRICT_MODE,
           thresholds: DEFAULT_THRESHOLDS,
         });
       });
@@ -179,8 +181,9 @@ describe("vitalsCommandHandler", () => {
         });
       });
 
-      it("should report on the results using the default thresholds", () => {
+      it("should report on the results using the default thresholds and strictness", () => {
         expect(reportResults).toHaveBeenCalledWith({
+          strict: DEFAULT_STRICT_MODE,
           thresholds: DEFAULT_THRESHOLDS,
         });
       });
@@ -228,8 +231,9 @@ describe("vitalsCommandHandler", () => {
         });
       });
 
-      it("should report on the results using the default thresholds", () => {
+      it("should report on the results using the default thresholds and strictness", () => {
         expect(reportResults).toHaveBeenCalledWith({
+          strict: DEFAULT_STRICT_MODE,
           thresholds: DEFAULT_THRESHOLDS,
         });
       });
@@ -279,10 +283,56 @@ describe("vitalsCommandHandler", () => {
         });
       });
 
-      it("should report on the results using the default thresholds", () => {
+      it("should report on the results using the default thresholds and strictness", () => {
         expect(reportResults).toHaveBeenCalledWith({
+          strict: DEFAULT_STRICT_MODE,
           thresholds: DEFAULT_THRESHOLDS,
           onReport: mockOnReport,
+        });
+      });
+    });
+
+    describe("when custom strictness is provided", () => {
+      beforeEach(() => {
+        vitalsCommandHandler({ strict: true });
+      });
+
+      it("should get the target url", () => {
+        expect(getUrl).toHaveBeenCalled();
+      });
+
+      it("should visit the url with the web-vitals snippet injected", () => {
+        expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith({
+          url: mockUrl,
+        });
+      });
+
+      it("should perform the first input with the default selector (a few times to ensure the browser registers the click - think impatient user!)", () => {
+        expect(performFirstInput).toHaveBeenCalledWith(
+          DEFAULT_FIRST_INPUT_SELECTOR
+        );
+        expect(performFirstInput).toHaveBeenCalledTimes(5);
+      });
+
+      it("should wait for the onload event", () => {
+        expect(waitForPageLoad).toHaveBeenCalled();
+      });
+
+      it("should trigger a page hide so CLS is reported", () => {
+        expect(triggerPageHideForReportingCls).toHaveBeenCalled();
+      });
+
+      it("should wait for all vitals to have been reported", () => {
+        expect(waitForVitals).toHaveBeenCalledWith({
+          vitals: WEB_VITALS_KEYS,
+          vitalsReportedTimeout: DEFAULT_ALL_WEB_VITALS_REPORTED_TIMEOUT_MS,
+        });
+      });
+
+      it("should report on the results using the provided strictness and default thresholds", () => {
+        expect(reportResults).toHaveBeenCalledWith({
+          strict: true,
+          thresholds: DEFAULT_THRESHOLDS,
         });
       });
     });
@@ -324,8 +374,9 @@ describe("vitalsCommandHandler", () => {
         });
       });
 
-      it("should report on the results using the provided thresholds", () => {
+      it("should report on the results using the provided thresholds and default strictness", () => {
         expect(reportResults).toHaveBeenCalledWith({
+          strict: DEFAULT_STRICT_MODE,
           thresholds: mockThresholds,
         });
       });
@@ -370,8 +421,9 @@ describe("vitalsCommandHandler", () => {
         });
       });
 
-      it("should report on the results using the default thresholds", () => {
+      it("should report on the results using the default thresholds and strictness", () => {
         expect(reportResults).toHaveBeenCalledWith({
+          strict: DEFAULT_STRICT_MODE,
           thresholds: DEFAULT_THRESHOLDS,
         });
       });

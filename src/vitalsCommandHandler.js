@@ -1,7 +1,8 @@
 const {
   DEFAULT_ALL_WEB_VITALS_REPORTED_TIMEOUT_MS,
-  DEFAULT_THRESHOLDS,
   DEFAULT_FIRST_INPUT_SELECTOR,
+  DEFAULT_STRICT_MODE,
+  DEFAULT_THRESHOLDS,
   LOG_SLUG,
   SUPPORTED_BROWSERS,
   WEB_VITALS_KEYS,
@@ -19,12 +20,14 @@ const vitalsCommandHandler = (
   {
     firstInputSelector = DEFAULT_FIRST_INPUT_SELECTOR,
     onReport,
+    strict = DEFAULT_STRICT_MODE,
     thresholds,
     url,
     vitalsReportedTimeout = DEFAULT_ALL_WEB_VITALS_REPORTED_TIMEOUT_MS,
     ...rest
   } = {
     firstInputSelector: DEFAULT_FIRST_INPUT_SELECTOR,
+    strict: DEFAULT_STRICT_MODE,
     vitalsReportedTimeout: DEFAULT_ALL_WEB_VITALS_REPORTED_TIMEOUT_MS,
   }
 ) => {
@@ -59,7 +62,7 @@ const vitalsCommandHandler = (
     .then(performFirstInput("body"))
     .then(triggerPageHideForReportingCls)
     .then(waitForVitals({ vitals: WEB_VITALS_KEYS, vitalsReportedTimeout }))
-    .then(reportResults({ thresholds, onReport }));
+    .then(reportResults({ onReport, strict, thresholds }));
 };
 
 module.exports = vitalsCommandHandler;
