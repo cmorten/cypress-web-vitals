@@ -5,11 +5,12 @@ const {
 } = require("./constants");
 
 const reportResults =
-  ({ thresholds, onReport }) =>
+  ({ onReport, strict, thresholds }) =>
   () => {
     const errors = [];
     const results = [];
     const report = {
+      strict,
       thresholds,
       results: {},
     };
@@ -34,17 +35,24 @@ const reportResults =
         }
 
         if (metric === null) {
-          results.push(
-            `${vital} web-vital could not be calculated, and threshold was ${threshold}. Skipping...`
-          );
+          if (strict) {
+            const message = `${vital} web-vital could not be calculated in strict mode, and threshold was ${threshold}. Fail.`;
+
+            results.push(message);
+            errors.push(message);
+          } else {
+            results.push(
+              `${vital} web-vital could not be calculated, and threshold was ${threshold}. Skipping...`
+            );
+          }
         } else if (metric > threshold) {
-          const message = `${vital} web-vital is ${metric}, and is over the ${threshold} threshold.`;
+          const message = `${vital} web-vital is ${metric}, and is over the ${threshold} threshold. Fail.`;
 
           results.push(message);
           errors.push(message);
         } else {
           results.push(
-            `${vital} web-vital is ${metric}, and threshold was ${threshold}.`
+            `${vital} web-vital is ${metric}, and threshold was ${threshold}. Pass.`
           );
         }
       }
@@ -64,8 +72,12 @@ const reportResults =
 
         const message =
           errors.length === 1
-            ? `${LOG_SLUG} - A threshold has been crossed.${formattedErrors}`
-            : `${LOG_SLUG} - Some thresholds have been crossed.${formattedErrors}`;
+            ? `${LOG_SLUG} - A threshold has been crossed${
+                strict ? " or a metric could not be calculated" : ""
+              }.${formattedErrors}`
+            : `${LOG_SLUG} - Some thresholds have been crossed${
+                strict ? " or some metrics could not be calculated" : ""
+              }.${formattedErrors}`;
 
         return cy.wrap(message, { log: false, timeout: 0 }).then((m) => {
           throw new Error(m);

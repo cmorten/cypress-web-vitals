@@ -85,6 +85,13 @@ declare namespace Cypress {
     onReport?: (report: WebVitalsReport) => void;
 
     /**
+     * Enables strict mode in which tests will fail if metrics with
+     * specified thresholds cannot be calculated.
+     * @default false
+     */
+    strict?: boolean;
+
+    /**
      * Thresholds to compare against captured web-vitals metrics.
      */
     thresholds?: WebVitalsThresholds;
