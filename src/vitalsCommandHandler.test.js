@@ -111,11 +111,8 @@ describe("vitalsCommandHandler", () => {
         expect(performFirstInput).toHaveBeenCalledWith(
           DEFAULT_FIRST_INPUT_SELECTOR
         );
-        expect(performFirstInput).toHaveBeenCalledWith("main");
-        expect(performFirstInput).toHaveBeenCalledWith("header");
-        expect(performFirstInput).toHaveBeenCalledWith("nav");
         expect(performFirstInput).toHaveBeenCalledWith("body");
-        expect(performFirstInput).toHaveBeenCalledTimes(5);
+        expect(performFirstInput).toHaveBeenCalledTimes(1);
       });
 
       it("should trigger a page hide so CLS is reported", () => {
@@ -163,7 +160,7 @@ describe("vitalsCommandHandler", () => {
         expect(performFirstInput).toHaveBeenCalledWith(
           DEFAULT_FIRST_INPUT_SELECTOR
         );
-        expect(performFirstInput).toHaveBeenCalledTimes(5);
+        expect(performFirstInput).toHaveBeenCalledTimes(1);
       });
 
       it("should wait for the onload event", () => {
@@ -213,7 +210,7 @@ describe("vitalsCommandHandler", () => {
 
       it("should perform the first input with the provided selector (a few times to ensure the browser registers the click - think impatient user!)", () => {
         expect(performFirstInput).toHaveBeenCalledWith(mockFirstInputSelector);
-        expect(performFirstInput).toHaveBeenCalledTimes(5);
+        expect(performFirstInput).toHaveBeenCalledTimes(1);
       });
 
       it("should wait for the onload event", () => {
@@ -265,7 +262,7 @@ describe("vitalsCommandHandler", () => {
         expect(performFirstInput).toHaveBeenCalledWith(
           DEFAULT_FIRST_INPUT_SELECTOR
         );
-        expect(performFirstInput).toHaveBeenCalledTimes(5);
+        expect(performFirstInput).toHaveBeenCalledTimes(1);
       });
 
       it("should wait for the onload event", () => {
@@ -356,7 +353,7 @@ describe("vitalsCommandHandler", () => {
         expect(performFirstInput).toHaveBeenCalledWith(
           DEFAULT_FIRST_INPUT_SELECTOR
         );
-        expect(performFirstInput).toHaveBeenCalledTimes(5);
+        expect(performFirstInput).toHaveBeenCalledTimes(1);
       });
 
       it("should wait for the onload event", () => {
@@ -403,7 +400,7 @@ describe("vitalsCommandHandler", () => {
         expect(performFirstInput).toHaveBeenCalledWith(
           DEFAULT_FIRST_INPUT_SELECTOR
         );
-        expect(performFirstInput).toHaveBeenCalledTimes(5);
+        expect(performFirstInput).toHaveBeenCalledTimes(1);
       });
 
       it("should wait for the onload event", () => {
