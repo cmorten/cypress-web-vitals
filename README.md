@@ -122,7 +122,7 @@ describe("web-vitals", () => {
   it("should log the report to APM", () => {
     cy.vitals({
       url: "https://www.google.com/",
-      onReport({ thresholds, results }) {
+      onReport({ results, strict, thresholds }) {
         console.log(results); // { lcp: ..., fid: ..., }
       }
     });

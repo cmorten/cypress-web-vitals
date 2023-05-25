@@ -66,6 +66,7 @@ declare namespace Cypress {
   }
 
   interface WebVitalsReport {
+    strict: boolean;
     thresholds: WebVitalsThresholds;
     results: WebVitalsResults;
   }
