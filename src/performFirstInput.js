@@ -1,10 +1,16 @@
 const performFirstInput = (firstInputSelector) => () =>
   cy.document({ log: false }).then(($document) => {
-    const documentResult = $document.querySelectorAll(firstInputSelector);
+    const selectors = Array.isArray(firstInputSelector)
+      ? firstInputSelector
+      : [firstInputSelector];
 
-    if (documentResult.length) {
-      return cy.get(firstInputSelector, { log: false }).realClick();
-    }
+    selectors.forEach((selector) => {
+      const documentResult = $document.querySelectorAll(selector);
+
+      if (documentResult.length) {
+        cy.get(selector, { log: false }).realClick();
+      }
+    });
   });
 
 module.exports = performFirstInput;

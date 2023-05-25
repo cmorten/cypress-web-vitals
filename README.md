@@ -82,7 +82,7 @@ cy.vitals({ thresholds: { cls: 0.2 } }); // Test the page against against a CLS 
 
 `WebVitalsConfig`:
 
-- `Optional` **firstInputSelector**: `string` - The element to click for capturing FID. The first matching element is used. Default: `"body"`.
+- `Optional` **firstInputSelector**: `string | string[]` - Selector(s) for the element(s) to click for capturing FID. Can be a single element selector or an array, all of which will be clicked. For each selector the first matching element is used. Default: `"body"`.
 - `Optional` **onReport**: `Function` - Callback for custom handling of the report results, e.g. for sending results to application monitoring platforms.
 - `Optional` **thresholds**: `WebVitalsThresholds` - The thresholds to audit the web-vitals against. If not provided Google's 'Good' scores will be used (see below). If provided, any missing web-vitals signals will not be audited.
 - `Optional` **url**: `string` - The url to audit. If not provided you will need to have called `cy.visit(url)` prior to the command.
@@ -135,7 +135,7 @@ The report results contains values for _all signals_, not just the values specif
 
 1. The url is visited with the HTML response intercepted and modified by Cypress to include the [web-vitals](https://github.com/GoogleChrome/web-vitals#from-a-cdn) module script and some code to record the web-vitals values.
 1. The audit then waits for the page load event to allow for the values of LCP and CLS to settle; which are subject to change as different parts of the page load into view.
-1. Several elements (if exist) starting with the provided element (based on `firstInputSelector`) are then clicked in quick succession to simulate a user clicking on the page to aid FID reporting. Note: if choosing a custom element, don't pick something that will navigate away from the page otherwise the plugin will fail to capture the web-vitals metrics.
+1. Several elements (if exist) starting with the provided element(s) (based on `firstInputSelector`) are then clicked in quick succession to simulate a user clicking on the page to aid FID reporting. Note: if choosing a custom element(s), don't pick something that will navigate away from the page otherwise the plugin will fail to capture the web-vitals metrics.
 1. Next the audit simulates a page visibility state change [which is required for the CLS web-vital to be reported](https://www.npmjs.com/package/web-vitals#basic-usage).
 1. The audit then attempts to wait for any outstanding web-vitals to be reported for which thresholds have been provided.
 1. Finally the web-vitals values are compared against the thresholds, logging successful results and throwing an error for any unsuccessful signals. Note: if the audit was unable to record a web-vital then it is logged, _but the test will not fail_.
