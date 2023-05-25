@@ -72,11 +72,11 @@ declare namespace Cypress {
 
   interface WebVitalsConfig {
     /**
-     * Selector used for capturing FID. The first matching element is
-     * used.
+     * Selector(s) used for capturing FID. The first matching element is
+     * used for each provided selector.
      * @default "body"
      */
-    firstInputSelector?: string;
+    firstInputSelector?: string | string[];
 
     /**
      * Callback for custom handling of the report results, e.g. for
