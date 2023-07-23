@@ -19,7 +19,7 @@ const reportVitalsCommandHandler = (
   } = {
     strict: DEFAULT_STRICT_MODE,
     vitalsReportedTimeout: DEFAULT_ALL_WEB_VITALS_REPORTED_TIMEOUT_MS,
-  }
+  },
 ) => {
   const browserName = Cypress.browser.displayName;
 
@@ -30,7 +30,7 @@ const reportVitalsCommandHandler = (
   if (!thresholds) {
     cy.log(
       LOG_SLUG,
-      "You have not set any thresholds. The test will use Google's 'Good' scores as the thresholds for every metric."
+      "You have not set any thresholds. The test will use Google's 'Good' scores as the thresholds for every metric.",
     );
 
     thresholds = DEFAULT_THRESHOLDS;

@@ -22,7 +22,7 @@ const vitalsCommandHandler = (
   } = {
     firstInputSelector: DEFAULT_FIRST_INPUT_SELECTOR,
     vitalsReportedTimeout: DEFAULT_ALL_WEB_VITALS_REPORTED_TIMEOUT_MS,
-  }
+  },
 ) => {
   const browserName = Cypress.browser.displayName;
 
@@ -35,7 +35,7 @@ const vitalsCommandHandler = (
       waitForVitals({
         vitals: WEB_VITALS_KEYS_WITHOUT_CLS_FID_LCP_INP,
         vitalsReportedTimeout,
-      })
+      }),
     )
     .then(performFirstInput(firstInputSelector))
     .then(performFirstInput(firstInputSelector))
@@ -45,7 +45,7 @@ const vitalsCommandHandler = (
         strict,
         thresholds,
         vitalsReportedTimeout,
-      })
+      }),
     );
 };
 

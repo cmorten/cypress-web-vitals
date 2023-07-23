@@ -9,7 +9,7 @@ const DEFAULT_THRESHOLDS = {
 
 const WEB_VITALS_KEYS = Object.keys(DEFAULT_THRESHOLDS);
 const WEB_VITALS_KEYS_WITHOUT_CLS_FID_LCP_INP = WEB_VITALS_KEYS.filter(
-  (vital) => !["cls", "fid", "lcp", "inp"].includes(vital)
+  (vital) => !["cls", "fid", "lcp", "inp"].includes(vital),
 );
 
 const DEFAULT_FIRST_INPUT_SELECTOR = "body";

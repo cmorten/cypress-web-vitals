@@ -16,21 +16,21 @@ describe("commands", () => {
   it("should add the vitals command to Cypress", () => {
     expect(global.Cypress.Commands.add).toHaveBeenCalledWith(
       "vitals",
-      vitalsCommandHandler
+      vitalsCommandHandler,
     );
   });
 
   it("should add the start vitals capture command to Cypress", () => {
     expect(global.Cypress.Commands.add).toHaveBeenCalledWith(
       "startVitalsCapture",
-      startVitalsCaptureCommandHandler
+      startVitalsCaptureCommandHandler,
     );
   });
 
   it("should add the report vitals command to Cypress", () => {
     expect(global.Cypress.Commands.add).toHaveBeenCalledWith(
       "reportVitals",
-      reportVitalsCommandHandler
+      reportVitalsCommandHandler,
     );
   });
 });

@@ -5,7 +5,7 @@ const visitWithWebVitalsSnippet = ({ url, ...rest }) => {
     req.continue((res) => {
       const body = res.body.replace(
         /<head(>|.*?[^?]>)/,
-        `<head$1${WEB_VITALS_SNIPPET}`
+        `<head$1${WEB_VITALS_SNIPPET}`,
       );
       res.send(body);
     });

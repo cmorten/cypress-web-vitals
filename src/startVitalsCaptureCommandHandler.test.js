@@ -35,7 +35,7 @@ describe("startVitalsCaptureCommandHandler", () => {
     it("should log a warning", () => {
       expect(global.cy.log).toHaveBeenCalledWith(
         LOG_SLUG,
-        `Firefox is not supported. Skipping...`
+        `Firefox is not supported. Skipping...`,
       );
     });
 

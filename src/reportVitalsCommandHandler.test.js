@@ -44,7 +44,7 @@ describe("reportVitalsCommandHandler", () => {
     it("should log a warning", () => {
       expect(global.cy.log).toHaveBeenCalledWith(
         LOG_SLUG,
-        `Firefox is not supported. Skipping...`
+        `Firefox is not supported. Skipping...`,
       );
     });
 
@@ -73,7 +73,7 @@ describe("reportVitalsCommandHandler", () => {
       it("should log a that Google's thresholds will be used", () => {
         expect(global.cy.log).toHaveBeenCalledWith(
           LOG_SLUG,
-          "You have not set any thresholds. The test will use Google's 'Good' scores as the thresholds for every metric."
+          "You have not set any thresholds. The test will use Google's 'Good' scores as the thresholds for every metric.",
         );
       });
 
@@ -104,7 +104,7 @@ describe("reportVitalsCommandHandler", () => {
       it("should log a that Google's thresholds will be used", () => {
         expect(global.cy.log).toHaveBeenCalledWith(
           LOG_SLUG,
-          "You have not set any thresholds. The test will use Google's 'Good' scores as the thresholds for every metric."
+          "You have not set any thresholds. The test will use Google's 'Good' scores as the thresholds for every metric.",
         );
       });
 

@@ -86,7 +86,7 @@ describe("waitForVitals", () => {
     it("should add an event listener for observing Web Vitals reports", () => {
       expect(mockWindow.addEventListener).toHaveBeenCalledWith(
         WEB_VITALS_ACCESSOR_KEY,
-        expect.any(Function)
+        expect.any(Function),
       );
     });
 
@@ -120,7 +120,7 @@ describe("waitForVitals", () => {
         it("should remove the Web Vitals event listener", () => {
           expect(mockWindow.removeEventListener).toHaveBeenCalledWith(
             WEB_VITALS_ACCESSOR_KEY,
-            expect.any(Function)
+            expect.any(Function),
           );
         });
 
@@ -165,7 +165,7 @@ describe("waitForVitals", () => {
     it("should add an event listener for observing Web Vitals reports", () => {
       expect(mockWindow.addEventListener).toHaveBeenCalledWith(
         WEB_VITALS_ACCESSOR_KEY,
-        expect.any(Function)
+        expect.any(Function),
       );
     });
   });

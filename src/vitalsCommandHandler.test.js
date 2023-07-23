@@ -48,7 +48,7 @@ describe("vitalsCommandHandler", () => {
     it("should log a warning", () => {
       expect(global.cy.log).toHaveBeenCalledWith(
         LOG_SLUG,
-        `Firefox is not supported. Skipping...`
+        `Firefox is not supported. Skipping...`,
       );
     });
 
@@ -89,7 +89,7 @@ describe("vitalsCommandHandler", () => {
 
       it("should perform the first input with the default selector and other common elements (a few times to ensure the browser registers the click - think impatient user!)", () => {
         expect(performFirstInput).toHaveBeenCalledWith(
-          DEFAULT_FIRST_INPUT_SELECTOR
+          DEFAULT_FIRST_INPUT_SELECTOR,
         );
         expect(performFirstInput).toHaveBeenCalledWith("body");
         expect(performFirstInput).toHaveBeenCalledTimes(2);
@@ -125,7 +125,7 @@ describe("vitalsCommandHandler", () => {
 
       it("should perform the first input with the default selector (a few times to ensure the browser registers the click - think impatient user!)", () => {
         expect(performFirstInput).toHaveBeenCalledWith(
-          DEFAULT_FIRST_INPUT_SELECTOR
+          DEFAULT_FIRST_INPUT_SELECTOR,
         );
         expect(performFirstInput).toHaveBeenCalledTimes(2);
       });
@@ -193,7 +193,7 @@ describe("vitalsCommandHandler", () => {
 
       it("should perform the first input with the default selector (a few times to ensure the browser registers the click - think impatient user!)", () => {
         expect(performFirstInput).toHaveBeenCalledWith(
-          DEFAULT_FIRST_INPUT_SELECTOR
+          DEFAULT_FIRST_INPUT_SELECTOR,
         );
         expect(performFirstInput).toHaveBeenCalledTimes(2);
       });
@@ -228,7 +228,7 @@ describe("vitalsCommandHandler", () => {
 
       it("should perform the first input with the default selector (a few times to ensure the browser registers the click - think impatient user!)", () => {
         expect(performFirstInput).toHaveBeenCalledWith(
-          DEFAULT_FIRST_INPUT_SELECTOR
+          DEFAULT_FIRST_INPUT_SELECTOR,
         );
         expect(performFirstInput).toHaveBeenCalledTimes(2);
       });
@@ -263,7 +263,7 @@ describe("vitalsCommandHandler", () => {
 
       it("should perform the first input with the default selector (a few times to ensure the browser registers the click - think impatient user!)", () => {
         expect(performFirstInput).toHaveBeenCalledWith(
-          DEFAULT_FIRST_INPUT_SELECTOR
+          DEFAULT_FIRST_INPUT_SELECTOR,
         );
         expect(performFirstInput).toHaveBeenCalledTimes(2);
       });
@@ -300,7 +300,7 @@ describe("vitalsCommandHandler", () => {
 
       it("should perform the first input with the default selector (a few times to ensure the browser registers the click - think impatient user!)", () => {
         expect(performFirstInput).toHaveBeenCalledWith(
-          DEFAULT_FIRST_INPUT_SELECTOR
+          DEFAULT_FIRST_INPUT_SELECTOR,
         );
         expect(performFirstInput).toHaveBeenCalledTimes(2);
       });

@@ -28,7 +28,7 @@ A <a href="https://github.com/GoogleChrome/web-vitals">Web Vitals</a> command fo
 
 - `cy.vitals()` - self contained command for performing a Web Vitals audit of page load performance.
 - `cy.startVitalsCapture()` - command for starting a journey based Web Vitals audit, enabling capture of [interaction to next paint (INP)](https://web.dev/inp/).
-- `cy.reportVitals()` - command for reporting on a journey based Web Vitals audit.
+- `cy.reportVitals()` - command for reporting on a journey based Web Vitals audit started with `cy.startVitalsCapture()`.
 
 ## Getting started
 
@@ -65,7 +65,6 @@ describe("Web Vitals", () => {
       url: "https://www.google.com/",
     });
 
-    cy.findByRole("button", { name: "Accept all" }).realClick();
     cy.findByRole("combobox", { name: "Search" }).realClick();
     cy.findByRole("listbox").should("be.visible");
 
@@ -74,7 +73,7 @@ describe("Web Vitals", () => {
 });
 ```
 
-_Note: this example is making use of the [Cypress Testing Library](https://testing-library.com/docs/cypress-testing-library/intro) for interacting with the page. This is not required for use of this package nor included in the package._
+_Note: this example is making use of the [Cypress Testing Library](https://testing-library.com/docs/cypress-testing-library/intro) for interacting with the page. This is not required for use of this package nor is it included in the package._
 
 ## Examples
 
@@ -118,6 +117,14 @@ cy.startVitalsCapture();
 cy.startVitalsCapture(startWebVitalsCaptureConfig);
 ```
 
+Example:
+
+```js
+cy.startVitalsCapture({
+  url: "https://www.google.com/",
+});
+```
+
 `StartWebVitalsCaptureConfig`:
 
 - `Optional` **url**: `string` - The url to audit. If not provided you will need to have called `cy.visit(url)` prior to the command.
@@ -131,6 +138,10 @@ Completes and reports on an audit against the Google Web Vitals.
 ```js
 cy.reportVitals();
 cy.reportVitals(reportWebVitalsConfig);
+```
+
+```js
+cy.reportVitals({ thresholds: { inp: 500 } }); // Test the page against against an INP threshold of 500.
 ```
 
 `ReportWebVitalsConfig`:

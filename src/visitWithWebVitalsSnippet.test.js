@@ -19,7 +19,7 @@ describe("visitWithWebVitalsSnippet", () => {
     it("should intercept the url", () => {
       expect(global.cy.intercept).toHaveBeenCalledWith(
         { method: "GET", url: mockUrl, times: 1 },
-        expect.any(Function)
+        expect.any(Function),
       );
     });
 
@@ -39,7 +39,7 @@ describe("visitWithWebVitalsSnippet", () => {
 
       it("should add the Web Vitals snippet to the response's <head>", () => {
         expect(mockResponse.send).toHaveBeenCalledWith(
-          `<html><head>${WEB_VITALS_SNIPPET}<title>App</title></head><body></body></html>`
+          `<html><head>${WEB_VITALS_SNIPPET}<title>App</title></head><body></body></html>`,
         );
       });
     });
@@ -60,7 +60,7 @@ describe("visitWithWebVitalsSnippet", () => {
 
       it("should recognize the irregular head tag format and preserve it", () => {
         expect(mockResponse.send).toHaveBeenCalledWith(
-          `<html><head attribute="value">${WEB_VITALS_SNIPPET}<title>App</title></head><body></body></html>`
+          `<html><head attribute="value">${WEB_VITALS_SNIPPET}<title>App</title></head><body></body></html>`,
         );
       });
     });
@@ -85,7 +85,7 @@ describe("visitWithWebVitalsSnippet", () => {
 
       it("should only add the vitals snippet following the first <head> in the HTML response", () => {
         expect(mockResponse.send).toHaveBeenCalledWith(
-          `<html><head>${WEB_VITALS_SNIPPET}<title>App</title><script>/** comment with <head> in it **/</script></head><body></body></html>`
+          `<html><head>${WEB_VITALS_SNIPPET}<title>App</title><script>/** comment with <head> in it **/</script></head><body></body></html>`,
         );
       });
     });
