@@ -37,7 +37,7 @@ describe("visitWithWebVitalsSnippet", () => {
         global.cy.intercept.mock.calls[0][1](mockRequest);
       });
 
-      it("should add the web-vitals snippet to the response's <head>", () => {
+      it("should add the Web Vitals snippet to the response's <head>", () => {
         expect(mockResponse.send).toHaveBeenCalledWith(
           `<html><head>${WEB_VITALS_SNIPPET}<title>App</title></head><body></body></html>`
         );

@@ -85,7 +85,7 @@ declare namespace Cypress {
 
   interface StartWebVitalsCaptureConfig {
     /**
-     * Url of page for auditing web-vitals. If not provided will
+     * Url of page for auditing Web Vitals. If not provided will
      * attempt to discover the current url using `cy.url()`.
      */
     url?: string;
@@ -112,12 +112,12 @@ declare namespace Cypress {
     strict?: boolean;
 
     /**
-     * Thresholds to compare against captured web-vitals metrics.
+     * Thresholds to compare against captured Web Vitals metrics.
      */
     thresholds?: WebVitalsThresholds;
 
     /**
-     * Time in ms to wait for web-vitals to be reported before failing.
+     * Time in ms to wait for Web Vitals to be reported before failing.
      * @default 10000
      */
     vitalsReportedTimeout?: number;
@@ -136,7 +136,7 @@ declare namespace Cypress {
 
   interface Chainable<Subject> {
     /**
-     * Runs a web-vitals audit
+     * Runs a Web Vitals audit
      * @example
      * cy.vitals({ thresholds, url, selector });
      * @param {WebVitalsConfig} webVitalsConfig configuration
@@ -144,7 +144,7 @@ declare namespace Cypress {
     vitals(webVitalsConfig?: WebVitalsConfig);
 
     /**
-     * Starts a web-vitals audit. Use with `cy.reportVitals()`.
+     * Starts a Web Vitals audit. Use with `cy.reportVitals()`.
      * @example
      * cy.startVitalsCapture({ url });
      * @param {StartWebVitalsCaptureConfig} startWebVitalsCaptureConfig configuration
@@ -154,7 +154,7 @@ declare namespace Cypress {
     );
 
     /**
-     * Reports on a web-vitals audit. Use with `cy.startVitalsCapture()`.
+     * Reports on a Web Vitals audit. Use with `cy.startVitalsCapture()`.
      * @example
      * cy.reportVitals({ thresholds });
      * @param {ReportWebVitalsConfig} reportWebVitalsConfig configuration

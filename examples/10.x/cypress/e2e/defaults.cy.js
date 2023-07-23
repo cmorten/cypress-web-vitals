@@ -3,7 +3,7 @@ describe("cy.vitals() command using the defaults", () => {
     cy.visit("https://www.google.com/");
   });
 
-  it("should meet the web-vitals default thresholds", () => {
+  it("should meet the Web Vitals default thresholds", () => {
     cy.vitals();
   });
 });

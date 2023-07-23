@@ -39,7 +39,7 @@ describe("waitForVitals", () => {
       })();
     });
 
-    it("should not add an event listener for observing web-vitals reports", () => {
+    it("should not add an event listener for observing Web Vitals reports", () => {
       expect(mockWindow.addEventListener).not.toHaveBeenCalled();
     });
 
@@ -83,7 +83,7 @@ describe("waitForVitals", () => {
       await resultPromise;
     });
 
-    it("should add an event listener for observing web-vitals reports", () => {
+    it("should add an event listener for observing Web Vitals reports", () => {
       expect(mockWindow.addEventListener).toHaveBeenCalledWith(
         WEB_VITALS_ACCESSOR_KEY,
         expect.any(Function)
@@ -117,7 +117,7 @@ describe("waitForVitals", () => {
           jest.runAllTimers();
         });
 
-        it("should remove the web-vitals event listener", () => {
+        it("should remove the Web Vitals event listener", () => {
           expect(mockWindow.removeEventListener).toHaveBeenCalledWith(
             WEB_VITALS_ACCESSOR_KEY,
             expect.any(Function)
@@ -162,7 +162,7 @@ describe("waitForVitals", () => {
       await resultPromise;
     });
 
-    it("should add an event listener for observing web-vitals reports", () => {
+    it("should add an event listener for observing Web Vitals reports", () => {
       expect(mockWindow.addEventListener).toHaveBeenCalledWith(
         WEB_VITALS_ACCESSOR_KEY,
         expect.any(Function)

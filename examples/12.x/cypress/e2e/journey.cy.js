@@ -1,5 +1,5 @@
 describe("cy.startVitalsCapture() and cy.reportVitals() journey", () => {
-  it("should meet the custom provided web-vitals thresholds including INP", () => {
+  it("should meet the custom provided Web Vitals thresholds including INP", () => {
     cy.startVitalsCapture({
       url: "https://www.google.com/",
     });

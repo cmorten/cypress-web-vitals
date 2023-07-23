@@ -169,7 +169,7 @@ It can be useful to have direct access to the raw data so you can generate custo
 This can be achieved through the optional `onReport` callback for `cy.vitals()` or `cy.reportVitals()` which receives the raw report before `cypress-web-vitals` passes or fails the test.
 
 ```js
-describe("web-vitals", () => {
+describe("Web Vitals", () => {
   it("should log the report to APM", () => {
     cy.vitals({
       url: "https://www.google.com/",

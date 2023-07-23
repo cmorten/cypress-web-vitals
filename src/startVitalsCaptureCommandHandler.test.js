@@ -64,7 +64,7 @@ describe("startVitalsCaptureCommandHandler", () => {
         expect(getUrl).toHaveBeenCalled();
       });
 
-      it("should visit the url with the web-vitals snippet injected", () => {
+      it("should visit the url with the Web Vitals snippet injected", () => {
         expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith({
           url: mockUrl,
         });
@@ -84,7 +84,7 @@ describe("startVitalsCaptureCommandHandler", () => {
         expect(getUrl).toHaveBeenCalledWith(mockUrl);
       });
 
-      it("should visit the url with the web-vitals snippet injected", () => {
+      it("should visit the url with the Web Vitals snippet injected", () => {
         expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith({
           url: mockUrl,
         });
@@ -106,7 +106,7 @@ describe("startVitalsCaptureCommandHandler", () => {
         expect(getUrl).toHaveBeenCalled();
       });
 
-      it("should visit the url with the web-vitals snippet injected", () => {
+      it("should visit the url with the Web Vitals snippet injected", () => {
         expect(visitWithWebVitalsSnippet).toHaveBeenCalledWith({
           url: mockUrl,
           visitParameterKey: mockVisitParameter,

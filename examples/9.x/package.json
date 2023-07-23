@@ -1,7 +1,7 @@
 {
   "name": "cypress-web-vitals-examples-9.x",
   "version": "1.0.0",
-  "description": "web-vitals command examples for Cypress 9.x",
+  "description": "Web Vitals command examples for Cypress 9.x",
   "author": "Craig Morten <craig.morten@hotmail.co.uk>",
   "license": "MIT",
   "main": "index.js",
