@@ -31,6 +31,12 @@ declare namespace Cypress {
      * @see https://web.dev/time-to-first-byte/
      */
     ttfb?: number;
+
+    /**
+     * Interaction to next paint.
+     * @see https://web.dev/inp/
+     */
+    inp: number | null;
   }
 
   interface WebVitalsResults {
@@ -63,6 +69,12 @@ declare namespace Cypress {
      * @see https://web.dev/time-to-first-byte/
      */
     ttfb: number | null;
+
+    /**
+     * Interaction to next paint.
+     * @see https://web.dev/inp/
+     */
+    inp: number | null;
   }
 
   interface WebVitalsReport {
@@ -71,14 +83,21 @@ declare namespace Cypress {
     results: WebVitalsResults;
   }
 
-  interface WebVitalsConfig {
+  interface StartWebVitalsCaptureConfig {
     /**
-     * Selector(s) used for capturing FID. The first matching element is
-     * used for each provided selector.
-     * @default "body"
+     * Url of page for auditing web-vitals. If not provided will
+     * attempt to discover the current url using `cy.url()`.
      */
-    firstInputSelector?: string | string[];
+    url?: string;
 
+    /**
+     * Additional parameters to pass to internal cy.visit() command when visit
+     * the url.
+     */
+    [visitKey: string]: unknown;
+  }
+
+  interface ReportWebVitalsConfig {
     /**
      * Callback for custom handling of the report results, e.g. for
      * sending results to application monitoring platforms.
@@ -98,16 +117,21 @@ declare namespace Cypress {
     thresholds?: WebVitalsThresholds;
 
     /**
-     * Url of page for auditing web-vitals. If not provided will
-     * attempt to discover the current url using `cy.url()`.
-     */
-    url?: string;
-
-    /**
      * Time in ms to wait for web-vitals to be reported before failing.
      * @default 10000
      */
     vitalsReportedTimeout?: number;
+  }
+
+  interface WebVitalsConfig
+    extends StartWebVitalsCaptureConfig,
+      ReportWebVitalsConfig {
+    /**
+     * Selector(s) used for capturing FID. The first matching element is
+     * used for each provided selector.
+     * @default "body"
+     */
+    firstInputSelector?: string | string[];
   }
 
   interface Chainable<Subject> {
@@ -118,5 +142,23 @@ declare namespace Cypress {
      * @param {WebVitalsConfig} webVitalsConfig configuration
      */
     vitals(webVitalsConfig?: WebVitalsConfig);
+
+    /**
+     * Starts a web-vitals audit. Use with `cy.reportVitals()`.
+     * @example
+     * cy.startVitalsCapture({ url });
+     * @param {StartWebVitalsCaptureConfig} startWebVitalsCaptureConfig configuration
+     */
+    startVitalsCapture(
+      startWebVitalsCaptureConfig: StartWebVitalsCaptureConfig
+    );
+
+    /**
+     * Reports on a web-vitals audit. Use with `cy.startVitalsCapture()`.
+     * @example
+     * cy.reportVitals({ thresholds });
+     * @param {ReportWebVitalsConfig} reportWebVitalsConfig configuration
+     */
+    reportVitals(reportWebVitalsConfig: ReportWebVitalsConfig);
   }
 }

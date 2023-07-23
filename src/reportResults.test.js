@@ -73,6 +73,7 @@ describe("reportResults", () => {
           cls: 3,
           fcp: null,
           ttfb: null,
+          inp: null,
         },
       });
     });
@@ -129,6 +130,7 @@ describe("reportResults", () => {
           cls: 5,
           fcp: null,
           ttfb: null,
+          inp: null,
         },
       });
     });
@@ -192,6 +194,7 @@ describe("reportResults", () => {
           cls: 0.1,
           fcp: null,
           ttfb: null,
+          inp: null,
         },
       });
     });
@@ -251,6 +254,7 @@ describe("reportResults", () => {
           cls: 0.1,
           fcp: null,
           ttfb: null,
+          inp: null,
         },
       });
     });
@@ -321,6 +325,7 @@ describe("reportResults", () => {
           cls: null,
           fcp: null,
           ttfb: null,
+          inp: null,
         },
       });
     });
@@ -391,6 +396,7 @@ describe("reportResults", () => {
           cls: 12,
           fcp: null,
           ttfb: null,
+          inp: null,
         },
       });
     });
@@ -440,6 +446,7 @@ describe("reportResults", () => {
           cls: 3,
           fcp: null,
           ttfb: null,
+          inp: null,
         },
       });
     });
