@@ -4,13 +4,18 @@ describe("cy.startVitalsCapture() and cy.reportVitals() journey", () => {
       url: "https://www.google.com/",
     });
 
-    cy.findByRole("button", { name: "Accept all" })
-      .then(($button) =>
-        $button.length
+    // Handle CI vs local having differences in whether cookie banner is
+    // present (the problem with testing against a site you don't own!)
+    cy.get("body")
+      .then(($body) => {
+        const $button = $body.find("button:contains('Accept all')");
+
+        return $button.length
           ? cy.wrap($button, { log: false }).realClick()
-          : cy.wrap($button, { log: false })
-      )
+          : cy.wrap($button, { log: false });
+      })
       .should("not.be.visible");
+
     cy.findByRole("button", { name: "Google apps" }).realClick();
     cy.findByText("Gmail").should("be.visible");
     cy.findByRole("button", { name: "Google apps" }).realClick();
@@ -24,6 +29,7 @@ describe("cy.startVitalsCapture() and cy.reportVitals() journey", () => {
         cls: 0.1,
         fcp: 1800,
         ttfb: 600,
+        // Google doesn't pass their own Good consistently
         inp: 500,
       },
     });
