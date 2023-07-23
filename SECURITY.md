@@ -1,6 +1,6 @@
 # Security Policies and Procedures
 
-This document outlines security procedures and general policies for the cypress-web-vitals
+This document outlines security procedures and general policies for the `cypress-web-vitals`.
 project.
 
 - [Reporting a Bug](#reporting-a-bug)
@@ -9,8 +9,8 @@ project.
 
 ## Reporting a Bug
 
-The cypress-web-vitals maintainers and community take all security bugs in cypress-web-vitals seriously.
-Thank you for improving the security of cypress-web-vitals. We appreciate your efforts and
+The `cypress-web-vitals` maintainers and community take all security bugs in `cypress-web-vitals` seriously.
+Thank you for improving the security of `cypress-web-vitals`. We appreciate your efforts and
 responsible disclosure and will make every effort to acknowledge your
 contributions.
 

@@ -47,19 +47,19 @@ describe("reportResults", () => {
 
     it("should log the results", () => {
       expect(global.cy.log).toHaveBeenCalledWith(
-        `-------- ${LOG_SLUG} --------`
+        `-------- ${LOG_SLUG} --------`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `lcp web-vital is 1, and threshold was 5. Pass.`
+        `lcp web-vital is 1, and threshold was 5. Pass.`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `fid web-vital is 2, and threshold was 5. Pass.`
+        `fid web-vital is 2, and threshold was 5. Pass.`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `cls web-vital is 3, and threshold was 5. Pass.`
+        `cls web-vital is 3, and threshold was 5. Pass.`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        "-----------------------------"
+        "-----------------------------",
       );
     });
 
@@ -73,6 +73,7 @@ describe("reportResults", () => {
           cls: 3,
           fcp: null,
           ttfb: null,
+          inp: null,
         },
       });
     });
@@ -106,16 +107,16 @@ describe("reportResults", () => {
 
     it("should log the results", () => {
       expect(global.cy.log).toHaveBeenCalledWith(
-        `-------- ${LOG_SLUG} --------`
+        `-------- ${LOG_SLUG} --------`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `lcp web-vital is 1, and threshold was 5. Pass.`
+        `lcp web-vital is 1, and threshold was 5. Pass.`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `cls web-vital is 5, and threshold was 5. Pass.`
+        `cls web-vital is 5, and threshold was 5. Pass.`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        "-----------------------------"
+        "-----------------------------",
       );
     });
 
@@ -129,6 +130,7 @@ describe("reportResults", () => {
           cls: 5,
           fcp: null,
           ttfb: null,
+          inp: null,
         },
       });
     });
@@ -166,19 +168,19 @@ describe("reportResults", () => {
 
     it("should log the results", () => {
       expect(global.cy.log).toHaveBeenCalledWith(
-        `-------- ${LOG_SLUG} --------`
+        `-------- ${LOG_SLUG} --------`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `lcp web-vital is 1, and threshold was 5. Pass.`
+        `lcp web-vital is 1, and threshold was 5. Pass.`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `fid web-vital could not be calculated, and threshold was 5. Skipping...`
+        `fid web-vital could not be calculated, and threshold was 5. Skipping...`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `cls web-vital is 0.1, and threshold was 5. Pass.`
+        `cls web-vital is 0.1, and threshold was 5. Pass.`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        "-----------------------------"
+        "-----------------------------",
       );
     });
 
@@ -192,6 +194,7 @@ describe("reportResults", () => {
           cls: 0.1,
           fcp: null,
           ttfb: null,
+          inp: null,
         },
       });
     });
@@ -225,19 +228,19 @@ describe("reportResults", () => {
 
     it("should log the results", () => {
       expect(global.cy.log).toHaveBeenCalledWith(
-        `-------- ${LOG_SLUG} --------`
+        `-------- ${LOG_SLUG} --------`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `lcp web-vital is 1, and threshold was 5. Pass.`
+        `lcp web-vital is 1, and threshold was 5. Pass.`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `fid web-vital could not be calculated in strict mode, and threshold was 5. Fail.`
+        `fid web-vital could not be calculated in strict mode, and threshold was 5. Fail.`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `cls web-vital is 0.1, and threshold was 5. Pass.`
+        `cls web-vital is 0.1, and threshold was 5. Pass.`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        "-----------------------------"
+        "-----------------------------",
       );
     });
 
@@ -251,6 +254,7 @@ describe("reportResults", () => {
           cls: 0.1,
           fcp: null,
           ttfb: null,
+          inp: null,
         },
       });
     });
@@ -295,19 +299,19 @@ describe("reportResults", () => {
 
     it("should log the results", () => {
       expect(global.cy.log).toHaveBeenCalledWith(
-        `-------- ${LOG_SLUG} --------`
+        `-------- ${LOG_SLUG} --------`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `lcp web-vital is 1, and threshold was 5. Pass.`
+        `lcp web-vital is 1, and threshold was 5. Pass.`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `fid web-vital could not be calculated in strict mode, and threshold was 5. Fail.`
+        `fid web-vital could not be calculated in strict mode, and threshold was 5. Fail.`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `cls web-vital could not be calculated in strict mode, and threshold was 5. Fail.`
+        `cls web-vital could not be calculated in strict mode, and threshold was 5. Fail.`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        "-----------------------------"
+        "-----------------------------",
       );
     });
 
@@ -321,6 +325,7 @@ describe("reportResults", () => {
           cls: null,
           fcp: null,
           ttfb: null,
+          inp: null,
         },
       });
     });
@@ -365,19 +370,19 @@ describe("reportResults", () => {
 
     it("should log the results", () => {
       expect(global.cy.log).toHaveBeenCalledWith(
-        `-------- ${LOG_SLUG} --------`
+        `-------- ${LOG_SLUG} --------`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `lcp web-vital is 5.1, and is over the 5 threshold. Fail.`
+        `lcp web-vital is 5.1, and is over the 5 threshold. Fail.`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `fid web-vital is 11, and is over the 5 threshold. Fail.`
+        `fid web-vital is 11, and is over the 5 threshold. Fail.`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `cls web-vital is 12, and is over the 5 threshold. Fail.`
+        `cls web-vital is 12, and is over the 5 threshold. Fail.`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        "-----------------------------"
+        "-----------------------------",
       );
     });
 
@@ -391,6 +396,7 @@ describe("reportResults", () => {
           cls: 12,
           fcp: null,
           ttfb: null,
+          inp: null,
         },
       });
     });
@@ -440,6 +446,7 @@ describe("reportResults", () => {
           cls: 3,
           fcp: null,
           ttfb: null,
+          inp: null,
         },
       });
     });
@@ -466,19 +473,19 @@ describe("reportResults", () => {
 
     it("should log the results", () => {
       expect(global.cy.log).toHaveBeenCalledWith(
-        `-------- ${LOG_SLUG} --------`
+        `-------- ${LOG_SLUG} --------`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `lcp web-vital is 1, and threshold was 5. Pass.`
+        `lcp web-vital is 1, and threshold was 5. Pass.`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `fid web-vital is 2, and threshold was 5. Pass.`
+        `fid web-vital is 2, and threshold was 5. Pass.`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        `cls web-vital is 3, and threshold was 5. Pass.`
+        `cls web-vital is 3, and threshold was 5. Pass.`,
       );
       expect(global.cy.log).toHaveBeenCalledWith(
-        "-----------------------------"
+        "-----------------------------",
       );
     });
   });

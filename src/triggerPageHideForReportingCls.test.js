@@ -30,7 +30,7 @@ describe("triggerPageHideForReportingCls", () => {
   it("should set the document's visibilityState to 'hidden'", () => {
     expect(global.cy.stub).toHaveBeenCalledWith(
       mockDocument,
-      "visibilityState"
+      "visibilityState",
     );
     expect(mockVisibilityStateSetter).toHaveBeenCalledWith("hidden");
   });

@@ -42,7 +42,7 @@ const reportResults =
             errors.push(message);
           } else {
             results.push(
-              `${vital} web-vital could not be calculated, and threshold was ${threshold}. Skipping...`
+              `${vital} web-vital could not be calculated, and threshold was ${threshold}. Skipping...`,
             );
           }
         } else if (metric > threshold) {
@@ -52,7 +52,7 @@ const reportResults =
           errors.push(message);
         } else {
           results.push(
-            `${vital} web-vital is ${metric}, and threshold was ${threshold}. Pass.`
+            `${vital} web-vital is ${metric}, and threshold was ${threshold}. Pass.`,
           );
         }
       }

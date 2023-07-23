@@ -56,7 +56,7 @@ describe("waitForPageLoad", () => {
       expect(mockWindow.addEventListener).toHaveBeenCalledWith(
         "load",
         expect.any(Function),
-        { once: true }
+        { once: true },
       );
     });
 

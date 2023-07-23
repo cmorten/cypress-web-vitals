@@ -1,5 +1,5 @@
 describe("cy.vitals() command not using the defaults", () => {
-  it("should meet the custom provided web-vitals thresholds", () => {
+  it("should meet the custom provided Web Vitals thresholds", () => {
     cy.vitals({
       url: "https://www.google.com/",
       firstInputSelector: "body",
