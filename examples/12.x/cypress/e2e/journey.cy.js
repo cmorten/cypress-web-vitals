@@ -4,11 +4,17 @@ describe("cy.startVitalsCapture() and cy.reportVitals() journey", () => {
       url: "https://www.google.com/",
     });
 
-    cy.findByRole("button", { name: "Accept all" }).realClick();
+    cy.findByRole("button", { name: "Accept all" })
+      .then(($button) =>
+        $button.length
+          ? cy.wrap($button, { log: false }).realClick()
+          : cy.wrap($button, { log: false })
+      )
+      .should("not.be.visible");
     cy.findByRole("button", { name: "Google apps" }).realClick();
     cy.findByText("Gmail").should("be.visible");
     cy.findByRole("button", { name: "Google apps" }).realClick();
-    cy.findByRole("combobox", { name: "Search" }).realClick();
+    cy.findByRole("combobox", { name: "Search" }).realClick().realClick();
     cy.findByRole("listbox").should("be.visible");
 
     cy.reportVitals({
