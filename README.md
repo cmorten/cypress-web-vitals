@@ -5,7 +5,8 @@
 A <a href="https://github.com/GoogleChrome/web-vitals">Web Vitals</a> command for <a href="https://github.com/cypress-io/cypress">Cypress</a>.
 </p>
 <p align="center">
-   <a href="https://github.com/cmorten/cypress-web-vitals/tags/"><img src="https://img.shields.io/github/tag/cmorten/cypress-web-vitals" alt="Current version" /></a>
+   <a href="https://github.com/cmorten/cypress-web-vitals/tags/"><img src="https://img.shields.io/github/tag/cmorten/cypress-web-vitals" alt="cypress-web-vitals versions" /></a>
+   <a href="https://www.npmjs.com/package/cmorten/cypress-web-vitals"><img alt="cypress-web-vitals available on NPM" src="https://img.shields.io/npm/dy/cypress-web-vitals"></a>
    <img src="https://github.com/cmorten/cypress-web-vitals/workflows/Test/badge.svg" alt="Current test status" />
    <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs are welcome" /></a>
    <a href="https://github.com/cmorten/cypress-web-vitals/issues/"><img src="https://img.shields.io/github/issues/cmorten/cypress-web-vitals" alt="cypress-web-vitals issues" /></a>
