@@ -2,7 +2,7 @@
   <h1 align="center">cypress-web-vitals</h1>
 </p>
 <p align="center">
-A <a href="https://github.com/GoogleChrome/web-vitals">Web Vitals</a> command for <a href="https://github.com/cypress-io/cypress">cypress</a>.
+A <a href="https://github.com/GoogleChrome/web-vitals">Web Vitals</a> command for <a href="https://github.com/cypress-io/cypress">Cypress</a>.
 </p>
 <p align="center">
    <a href="https://github.com/cmorten/cypress-web-vitals/tags/"><img src="https://img.shields.io/github/tag/cmorten/cypress-web-vitals" alt="Current version" /></a>
