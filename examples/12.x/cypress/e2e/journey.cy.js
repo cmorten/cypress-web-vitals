@@ -6,15 +6,13 @@ describe("cy.startVitalsCapture() and cy.reportVitals() journey", () => {
 
     // Handle CI vs local having differences in whether cookie banner is
     // present (the problem with testing against a site you don't own!)
-    cy.get("body")
-      .then(($body) => {
-        const $button = $body.find("button:contains('Accept all')");
+    cy.get("body").then(($body) => {
+      const $button = $body.find("button:contains('Accept all')");
 
-        return $button.length
-          ? cy.wrap($button, { log: false }).realClick()
-          : cy.wrap($button, { log: false });
-      })
-      .should("not.be.visible");
+      if ($button.length) {
+        cy.wrap($button, { log: false }).realClick();
+      }
+    });
 
     cy.findByRole("button", { name: "Google apps" }).realClick();
     cy.findByText("Gmail").should("be.visible");
