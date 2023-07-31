@@ -1,6 +1,6 @@
 {
   "name": "cypress-web-vitals",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "A Web Vitals command for cypress",
   "author": "Craig Morten <craig.morten@hotmail.co.uk>",
   "license": "MIT",
