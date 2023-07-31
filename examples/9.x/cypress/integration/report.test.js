@@ -16,6 +16,7 @@ describe("cy.vitals() command not using the defaults", () => {
         expect(report.results).to.have.property("cls");
         expect(report.results).to.have.property("fcp");
         expect(report.results).to.have.property("ttfb");
+        expect(report.results).to.have.property("inp");
 
         cy.log("------ onReport values ------");
         cy.log(JSON.stringify(report, undefined, 2));

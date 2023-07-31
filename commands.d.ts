@@ -36,7 +36,7 @@ declare namespace Cypress {
      * Interaction to next paint.
      * @see https://web.dev/inp/
      */
-    inp: number | null;
+    inp?: number | null;
   }
 
   interface WebVitalsResults {

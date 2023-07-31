@@ -9,6 +9,7 @@ describe("cy.vitals() command not using the defaults", () => {
         cls: 0.1,
         fcp: 1800,
         ttfb: 600,
+        inp: 500,
       },
     });
   });
