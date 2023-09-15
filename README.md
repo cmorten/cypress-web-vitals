@@ -78,7 +78,7 @@ _Note: this example is making use of the [Cypress Testing Library](https://testi
 
 ## Examples
 
-Example Cypress test setups with a variety of tests using `cypress-web-vitals` for Cypress 9.x, 10.x, and 12.x are available in the [`./examples` directory](./examples).
+Example Cypress test setups with a variety of tests using `cypress-web-vitals` for Cypress 9.x, 10.x, 12.x and 13.x are available in the [`./examples` directory](./examples).
 
 ## API
 
