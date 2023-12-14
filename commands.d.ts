@@ -139,7 +139,7 @@ declare namespace Cypress {
      * Runs a Web Vitals audit
      * @example
      * cy.vitals({ thresholds, url, selector });
-     * @param {WebVitalsConfig} webVitalsConfig configuration
+     * @param {WebVitalsConfig} [webVitalsConfig] configuration
      */
     vitals(webVitalsConfig?: WebVitalsConfig);
 
@@ -147,18 +147,18 @@ declare namespace Cypress {
      * Starts a Web Vitals audit. Use with `cy.reportVitals()`.
      * @example
      * cy.startVitalsCapture({ url });
-     * @param {StartWebVitalsCaptureConfig} startWebVitalsCaptureConfig configuration
+     * @param {StartWebVitalsCaptureConfig} [startWebVitalsCaptureConfig] configuration
      */
     startVitalsCapture(
-      startWebVitalsCaptureConfig: StartWebVitalsCaptureConfig
+      startWebVitalsCaptureConfig?: StartWebVitalsCaptureConfig
     );
 
     /**
      * Reports on a Web Vitals audit. Use with `cy.startVitalsCapture()`.
      * @example
      * cy.reportVitals({ thresholds });
-     * @param {ReportWebVitalsConfig} reportWebVitalsConfig configuration
+     * @param {ReportWebVitalsConfig} [reportWebVitalsConfig] configuration
      */
-    reportVitals(reportWebVitalsConfig: ReportWebVitalsConfig);
+    reportVitals(reportWebVitalsConfig?: ReportWebVitalsConfig);
   }
 }
