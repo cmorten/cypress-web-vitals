@@ -312,11 +312,9 @@ cross-spawn@^7.0.0:
     which "^2.0.1"
 
 cypress-real-events@^1.9.1:
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/cypress-real-events/-/cypress-real-events-1.9.1.tgz#75fc4f73ec8b7775467ef940d52d12fe440c99e3"
-  integrity sha512-eDYW6NagNs8+68ugyPbB6U1aIsYF0E0WHR6upXo0PbTXZNqBNc2s9Y0u/N+pbU9HpFh+krl6iMhoz/ENlYBdCg==
-  dependencies:
-    prettier "^3.0.0"
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/cypress-real-events/-/cypress-real-events-1.11.0.tgz#292fe5281c5b6e955524e766ab7fec46930c7763"
+  integrity sha512-4LXVRsyq+xBh5TmlEyO1ojtBXtN7xw720Pwb9rEE9rkJuXmeH3VyoR1GGayMGr+Itqf11eEjfDewtDmcx6PWPQ==
 
 cypress@^10.11.0:
   version "10.11.0"
@@ -893,11 +891,6 @@ pify@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
   integrity sha512-udgsAY+fTnvv7kI7aaxbqwWNb0AHiB0qBO89PZKPkoTmGOgdbrHDKD+0B2X4uTfJ/FT1R09r9gTsjUjNJotuog==
-
-prettier@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.0.0.tgz#e7b19f691245a21d618c68bc54dc06122f6105ae"
-  integrity sha512-zBf5eHpwHOGPC47h0zrPyNn+eAEIdEzfywMoYn2XPi0P44Zp0tSq64rq0xAREh4auw2cJZHo9QUob+NqCQky4g==
 
 pretty-bytes@^5.6.0:
   version "5.6.0"
