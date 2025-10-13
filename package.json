@@ -17,7 +17,7 @@
     "test": "jest ./src --coverage"
   },
   "devDependencies": {
-    "cypress": "^14.0.0",
+    "cypress": "^15.0.0",
     "cypress-real-events": "^1.11.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
@@ -27,7 +27,8 @@
     "prettier": "^3.1.1"
   },
   "peerDependencies": {
-    "cypress": "^4.x || ^5.x || ^6.x || ^7.x || ^8.x || ^9.x || ^10.x || ^11.x || ^12.x || ^13.x || ^14.x",
+    "cypress": "^4.x || ^5.x || ^6.x || ^7.x || ^8.x || ^9.x || ^10.x || ^11.x || ^12.x || ^13.x || ^14.x || ^15.x",
     "cypress-real-events": "^1.x"
-  }
+  },
+  "packageManager": "yarn@4.10.3"
 }
