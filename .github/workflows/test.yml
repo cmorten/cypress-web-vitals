@@ -28,11 +28,35 @@ jobs:
       - name: Test
         run: yarn test
 
+  legacy-examples:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: ["9.x", "10.x", "12.x", "13.x", "14.x"]
+
+    container: cypress/browsers:node18.12.0-chrome107
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Cypress ${{ matrix.version }}
+        run: |
+          yarn --cwd examples/${{ matrix.version }} install --frozen-lockfile
+          yarn --cwd examples/${{ matrix.version }} cy:run
+      - uses: actions/upload-artifact@v5
+        if: always()
+        continue-on-error: true
+        with:
+          name: artifacts-test-${{ matrix.version }}
+          path: |
+            **/screenshots/**/*
+            **/videos/**/*
+
   examples:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: ["9.x", "10.x", "12.x", "13.x", "14.x", "15.x"]
+        version: ["15.x"]
 
     container: cypress/browsers:node-24.11.1-chrome-142.0.7444.162-1-ff-145.0-edge-142.0.3595.65-1
     steps:
