@@ -43,11 +43,11 @@ jobs:
         run: |
           yarn --cwd examples/${{ matrix.version }} install --frozen-lockfile
           yarn --cwd examples/${{ matrix.version }} cy:run
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: always()
         continue-on-error: true
         with:
-          name: artifacts
+          name: artifacts-test-${{ matrix.version }}
           path: |
             **/screenshots/**/*
             **/videos/**/*
