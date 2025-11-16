@@ -21,6 +21,8 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version-file: .nvmrc
+          registry-url: https://registry.npmjs.org/
+          always-auth: true
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Lint
@@ -34,7 +36,7 @@ jobs:
       matrix:
         version: ["9.x", "10.x", "12.x", "13.x", "14.x"]
 
-    container: cypress/browsers:node18.12.0-chrome107
+    container: node-20.18.0-chrome-130.0.6723.69-1-ff-131.0.3-edge-130.0.2849.52-1
     steps:
       - uses: actions/checkout@v5
       - name: Install dependencies
