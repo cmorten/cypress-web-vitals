@@ -10,8 +10,8 @@
     "cy:run": "cypress run --headless --browser chrome"
   },
   "devDependencies": {
-    "@testing-library/cypress": "^10.0.0",
+    "@testing-library/cypress": "^10.1.0",
     "cypress": "^15.0.0",
-    "cypress-real-events": "^1.10.3"
+    "cypress-real-events": "^1.15.0"
   }
 }
