@@ -17,10 +17,12 @@ jobs:
         run: |
           git config --global core.autocrlf false
           git config --global core.eol lf
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version-file: .nvmrc
+          registry-url: https://registry.npmjs.org/
+          always-auth: true
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Lint
@@ -28,26 +30,50 @@ jobs:
       - name: Test
         run: yarn test
 
-  examples:
+  legacy-examples:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         version: ["9.x", "10.x", "12.x", "13.x", "14.x"]
 
-    container: cypress/browsers:node18.12.0-chrome107
+    container: cypress/browsers:node-20.18.0-chrome-130.0.6723.69-1-ff-131.0.3-edge-130.0.2849.52-1
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
       - name: Install dependencies
         run: yarn install --frozen-lockfile
       - name: Cypress ${{ matrix.version }}
         run: |
           yarn --cwd examples/${{ matrix.version }} install --frozen-lockfile
           yarn --cwd examples/${{ matrix.version }} cy:run
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v5
         if: always()
         continue-on-error: true
         with:
-          name: artifacts
+          name: artifacts-test-${{ matrix.version }}
+          path: |
+            **/screenshots/**/*
+            **/videos/**/*
+
+  examples:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: ["15.x"]
+
+    container: cypress/browsers:node-24.11.1-chrome-142.0.7444.162-1-ff-145.0-edge-142.0.3595.65-1
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Cypress ${{ matrix.version }}
+        run: |
+          yarn --cwd examples/${{ matrix.version }} install --frozen-lockfile
+          yarn --cwd examples/${{ matrix.version }} cy:run
+      - uses: actions/upload-artifact@v5
+        if: always()
+        continue-on-error: true
+        with:
+          name: artifacts-test-${{ matrix.version }}
           path: |
             **/screenshots/**/*
             **/videos/**/*
